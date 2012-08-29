@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<name>
+		<lang name="default">Feedback</lang>
+		<lang name="russian">Обратная связь</lang>
+	</name>
+	<author>
+		<lang name="default">Chiffa</lang>
+	</author>
+	<homepage>http://mpGame.info</homepage>
+	<version>1.2</version>
+	<requires>
+		<livestreet>0.4.2</livestreet>
+		<plugins></plugins>
+	</requires>
+	<description>
+		<lang name="default">Feedback form for Livestreet CMS</lang>
+		<lang name="russian">Форма обратной связи для Livestreet CMS</lang>
+	</description>
+</plugin>
