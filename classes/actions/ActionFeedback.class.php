@@ -41,13 +41,19 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 	 *
 	 */
 	protected function RegisterEvent() {
-		$this->AddEvent('index','EventIndex');
+		/**
+		 * Админка
+		 */
 		$this->AddEvent('admin','EventAdmin');
-	}
-
-
-	private function CanWrite() {
-		return !isset($_COOKIE['feedback']);
+		/**
+		 * Пользовательская часть
+		 */
+		$this->AddEvent('index','EventIndex');
+		/**
+		 * AJAX Обработчики
+		 */
+		$this->AddEventPreg('/^ajax$/i','/^validate$/','EventAjaxValidate');
+		$this->AddEventPreg('/^ajax$/i','/^send$/','EventAjaxSend');
 	}
 
 	/**********************************************************************************
@@ -56,19 +62,80 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 	 */
 
 	/**
-	 * Показывает и обрабатывает страничку обратной связи
+	 * Ajax валидация формы
+	 *
 	 */
-	protected function EventIndex() {
-		if (!isPost('submit_feedback')) {
-			return false;
+	protected function EventAjaxValidate() {
+		/**
+		 * Устанавливаем формат Ajax ответа
+		 */
+		$this->Viewer_SetResponseAjax('json');
+		/**
+		 * Создаем объект сообщения
+		 */
+		$oMsg=LS::Ent('PluginFeedback_Feedback_Msg');
+		/**
+		 * Пробегаем по переданным полям/значениям и валидируем их каждое в отдельности
+		 */
+		$aFields=getRequest('fields');
+		if (is_array($aFields)) {
+			foreach($aFields as $aField) {
+				if (isset($aField['field']) and isset($aField['value'])) {
+					/**
+					 * Запускаем хук
+					 */
+					$this->Hook_Run('feedback_validate_field', array('aField'=>&$aField));
+
+					$sField=$aField['field'];
+					$sValue=$aField['value'];
+					/**
+					 * Список полей для валидации
+					 */
+					switch($sField){
+						case 'name':
+							$oMsg->setName($sValue);
+							break;
+						case 'mail':
+							$oMsg->setMail($sValue);
+							break;
+						case 'title':
+							$oMsg->setTitle($sValue);
+							break;
+						case 'text':
+							$oMsg->setText($sValue);
+							break;
+						case 'captcha':
+							$oMsg->setCaptcha($sValue);
+							break;
+						default:
+							continue;
+							break;
+					}
+					/**
+					 * Валидируем поле
+					 */
+					$oMsg->_Validate(array($sField),false);
+				}
+			}
 		}
 		/**
-		 * Проверка - разрешено ли писать по времени
+		 * Возникли ошибки?
 		 */
-		if (!$this->CanWrite()) {
-			$this->Message_AddErrorSingle($this->Lang_Get('plugin.feedback.send_spam_error'), $this->Lang_Get('error'));
-			return;
+		if ($oMsg->_hasValidateErrors()) {
+			/**
+			 * Получаем ошибки
+			 */
+			$this->Viewer_AssignAjax('aErrors',$oMsg->_getValidateErrors());
 		}
+	}
+	/**
+	 * Обработка Ajax регистрации
+	 */
+	protected function EventAjaxSend() {
+		/**
+		 * Устанавливаем формат Ajax ответа
+		 */
+		$this->Viewer_SetResponseAjax('json');
 		/**
 		 * Создаем объект письма
 		 */
@@ -76,11 +143,11 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * Заполняем поля (данные)
 		 */
-		$oMsg->setName(getRequest('send_name'));
-		$oMsg->setMail(getRequest('send_mail'));
-		$oMsg->setTitle(getRequest('send_title'));
-		$oMsg->setText($this->Text_Parser(getRequest('send_text')));
-		$oMsg->setCaptcha(getRequest('send_captcha'));
+		$oMsg->setName(getRequest('name'));
+		$oMsg->setMail(getRequest('mail'));
+		$oMsg->setTitle(getRequest('title'));
+		$oMsg->setText($this->Text_Parser(getRequest('text')));
+		$oMsg->setCaptcha(getRequest('captcha'));
 		$oMsg->setIp(func_getIp());
 		$oMsg->setDate(date("Y-m-d H:i:s"));
 		/**
@@ -94,7 +161,13 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			$this->Hook_Run('feedback_validate_after', array('oMsg'=>$oMsg));
 			if ($this->PluginFeedback_Feedback_Send($oMsg)) {
 				$this->Hook_Run('feedback_send_after', array('oMsg'=>$oMsg));
-
+				/**
+				 * Убиваем каптчу
+				 */
+				unset($_SESSION['captcha_keystring']);
+				/**
+				 * Выводим уведомление
+				 */
 				$this->Message_AddNoticeSingle($this->Lang_Get('plugin.feedback.send_ok'));
 			} else {
 				$this->Message_AddErrorSingle($this->Lang_Get('system_error'));
@@ -103,8 +176,16 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			/**
 			 * Получаем ошибки
 			 */
-			$this->Message_AddErrorSingle($oMsg->_getValidateError());
+			$this->Viewer_AssignAjax('aErrors',$oMsg->_getValidateErrors());
 		}
+	}
+
+	/**
+	 * Показывает страничку обратной связи
+	 *
+	 */
+	protected function EventIndex() {
+
 	}
 
 	/**

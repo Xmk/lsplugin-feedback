@@ -64,10 +64,17 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 			);
 		}
 
-		SetCookie('feedback', 1, time()+Config::Get('plugin.feedback.acl_limit_time'));
+		fSetCookie('feedback', 1, 0, 0, 0, Config::Get('plugin.feedback.acl_limit_time'));
 
 		return true;
 	}
 
+	/**
+	 * Проверяет возможность написать
+	 *
+	 */
+	public function CanWrite() {
+		return !fGetCookie('feedback');
+	}
 }
 ?>

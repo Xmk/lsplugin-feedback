@@ -1,3 +1,31 @@
-#send_text.mce-editor {
+.feedback-form .form-item:last-child {
+	margin-bottom: 0
+}
+.feedback-form dl.form-item dd {
+	position: relative;
+	width: 505px
+}
+.feedback-form dl.form-item dd .markItUp {
+	width: 400px
+}
+.feedback-form dl.form-item dd .mce-editor {
 	height: 200px
+}
+.feedback-form dl.form-item dd .form-item-help {
+	width: 100px;
+	height: 20px;
+	position: absolute;
+	top: 1px;
+	right: 0
+}
+.feedback-form dl.form-item dd .form-item-help.active {
+	background: url(../images/dots.png) 0 12px repeat-x
+}
+.feedback-form dl.form-item dd .form-item-help i {
+	background-color: #f8fbfe
+}
+.feedback-form dl.form-item dd .form-item-help i.icon-ok-green  {
+	position: absolute;
+	top: 3px;
+	right: 0
 }

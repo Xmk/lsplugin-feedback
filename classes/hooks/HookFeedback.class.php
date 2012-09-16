@@ -17,17 +17,7 @@ class PluginFeedback_HookFeedback extends Hook {
 	 */
 	public function RegisterHook() {
 		$this->AddHook('init_action', 'InitAction', __CLASS__);
-		if (Config::Get('plugin.feedback.add_forms_links')) {
-			$this->AddHook('template_form_login_end', 'InjectLogin', __CLASS__);
-			$this->AddHook('template_form_login_popup_end', 'InjectLogin', __CLASS__);
-			$this->AddHook('template_form_registration_end', 'InjectRegister', __CLASS__);
-		}
-		if (Config::Get('plugin.feedback.add_menu_link')) {
-			$this->AddHook('template_main_menu_item', 'InjectMenu', __CLASS__);
-		}
-		if (Config::Get('plugin.feedback.add_footer_link')) {
-			$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
-		}
+	//	$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
 	}
 
 
@@ -41,25 +31,6 @@ class PluginFeedback_HookFeedback extends Hook {
 				return ;
 			}
 		}
-	}
-
-	/**
-	 * Вставляем ссылку на Обратную связь в форму регистрации и авторизации
-	 */
-	public function InjectLogin($aVars) {
-		$this->Viewer_Assign('sMsg', $this->Lang_Get('login_problem'));
-		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'inject_forms.tpl');
-	}
-	public function InjectRegister($aVars) {
-		$this->Viewer_Assign('sMsg', $this->Lang_Get('register_problem'));
-		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'inject_forms.tpl');
-	}
-
-	/**
-	 * Вставляем ссылку на Обратную связь в главное меню
-	 */
-	public function InjectMenu() {
-		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'inject_menu.tpl');
 	}
 
 	/**

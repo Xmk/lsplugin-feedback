@@ -17,29 +17,29 @@ if (!class_exists('Plugin')) {
 class PluginFeedback extends Plugin {
 
 	/**
-	 * Àêòèâàöèÿ ïëàãèíà
+	 * ÐÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ñ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð°
 	 */
 	public function Activate() {
 		return true;
 	}
 
 	/**
-	 * Äåàêòèâàöèÿ ïëàãèíà
+	 * Ð”ÐµÐ°ÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ñ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð°
 	 */
 	public function Deactivate() {
 		return true;
 	}
 
 	/**
-	 * Èíèöèàëèçàöèÿ ïëàãèíà
+	 * Ð˜Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð°
 	 */
 	public function Init() {
 		/**
-		 * Ïîäêëþ÷àåì CSS
+		 * ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ CSS
 		 */
 		$this->Viewer_AppendStyle(Plugin::GetTemplatePath(__CLASS__).'css/feedback.css');
 		/**
-		 * Ïîäêëþ÷àåì JS
+		 * ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ JS
 		 */
 		$this->Viewer_AppendScript(Plugin::GetTemplatePath(__CLASS__).'js/feedback.js');
 
