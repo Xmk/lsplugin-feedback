@@ -2,11 +2,11 @@
 /*---------------------------------------------------------------------------
 * @Module Name: Feedback
 * @Description: Feedback for LiveStreet
-* @Version: 1.2
+* @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 0.4.2
-* @File Name: ActionFeedback.class.php
-* @License: GNU GPL v2, http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+* @LiveStreet Version: 1.0
+* @File Name: HookFeedback.class.php
+* @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
 */
 
@@ -23,7 +23,7 @@ class PluginFeedback_HookFeedback extends Hook {
 			$this->AddHook('template_form_registration_end', 'InjectRegister', __CLASS__);
 		}
 		if (Config::Get('plugin.feedback.add_menu_link')) {
-			$this->AddHook('template_main_menu', 'InjectMenu', __CLASS__);
+			$this->AddHook('template_main_menu_item', 'InjectMenu', __CLASS__);
 		}
 		if (Config::Get('plugin.feedback.add_footer_link')) {
 			$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);

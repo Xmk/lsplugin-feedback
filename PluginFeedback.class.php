@@ -2,11 +2,11 @@
 /*---------------------------------------------------------------------------
 * @Module Name: Feedback
 * @Description: Feedback for LiveStreet
-* @Version: 1.2
+* @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 0.4.2
-* @File Name: ActionFeedback.class.php
-* @License: GNU GPL v2, http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+* @LiveStreet Version: 1.0
+* @File Name: PluginFeedback.class.php
+* @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
 */
 
@@ -16,11 +16,33 @@ if (!class_exists('Plugin')) {
 
 class PluginFeedback extends Plugin {
 
-	public function Init() {
+	/**
+	 * Активация плагина
+	 */
+	public function Activate() {
+		return true;
 	}
 
-	public function Activate() {		
+	/**
+	 * Деактивация плагина
+	 */
+	public function Deactivate() {
 		return true;
+	}
+
+	/**
+	 * Инициализация плагина
+	 */
+	public function Init() {
+		/**
+		 * Подключаем CSS
+		 */
+		$this->Viewer_AppendStyle(Plugin::GetTemplatePath(__CLASS__).'css/feedback.css');
+		/**
+		 * Подключаем JS
+		 */
+		$this->Viewer_AppendScript(Plugin::GetTemplatePath(__CLASS__).'js/feedback.js');
+
 	}
 
 }

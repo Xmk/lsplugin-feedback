@@ -1,1 +1,1 @@
-<li{if $sAction=='feedback'} class="active"{/if}><a href="{router page='feedback'}">{$aLang.feedback}</a></li>
+<li{if $sMenuHeadItemSelect=='feedback'} class="active"{/if}><a href="{router page='feedback'}">{$aLang.plugin.feedback.feedback}</a></li>

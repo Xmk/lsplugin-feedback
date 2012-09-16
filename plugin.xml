@@ -6,12 +6,15 @@
 	</name>
 	<author>
 		<lang name="default">Chiffa</lang>
+		<lang name="russian">Чиффа</lang>
 	</author>
-	<homepage>http://mpGame.info</homepage>
-	<version>1.2</version>
+	<homepage>http://xmk.ars-team.ru</homepage>
+	<version>2.0</version>
+	<settings>{feedback}admin/</settings>
 	<requires>
-		<livestreet>0.4.2</livestreet>
-		<plugins></plugins>
+		<livestreet>1.0</livestreet>
+		<plugins>
+		</plugins>
 	</requires>
 	<description>
 		<lang name="default">Feedback form for Livestreet CMS</lang>

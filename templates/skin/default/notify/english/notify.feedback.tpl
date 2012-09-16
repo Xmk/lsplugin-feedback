@@ -4,6 +4,7 @@
 <strong>IP address from which the message was sent:</strong><br/>
 {$sIp}
 <br/>
+<br/>
 <strong>Message:</strong><br/>
 {$sText}
 <br/>

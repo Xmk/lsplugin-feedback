@@ -2,11 +2,11 @@
 /*---------------------------------------------------------------------------
 * @Module Name: Feedback
 * @Description: Feedback for LiveStreet
-* @Version: 1.2
+* @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 0.4.2
-* @File Name: ActionFeedback.class.php
-* @License: GNU GPL v2, http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+* @LiveStreet Version: 1.0
+* @File Name: config.php
+* @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
 */
 
