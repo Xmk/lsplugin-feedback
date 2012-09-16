@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+{include file='header.tpl' noSidebar=true}
 
 {if $oConfig->GetValue('view.tinymce')}
 	<script src="{cfg name='path.root.engine_lib'}/external/tinymce-jq/tiny_mce.js"></script>
