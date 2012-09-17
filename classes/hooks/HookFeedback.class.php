@@ -17,7 +17,7 @@ class PluginFeedback_HookFeedback extends Hook {
 	 */
 	public function RegisterHook() {
 		$this->AddHook('init_action', 'InitAction', __CLASS__);
-	//	$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
+		$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
 	}
 
 
@@ -37,7 +37,7 @@ class PluginFeedback_HookFeedback extends Hook {
 	 * Вставляем ссылку на Обратную связь в футер
 	 */
 	public function InjectFooter($aVars) {
-		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'inject_footer.tpl');
+		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'window_feedback.tpl');
 	}
 
 }

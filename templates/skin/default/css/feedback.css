@@ -29,3 +29,35 @@
 	top: 3px;
 	right: 0
 }
+
+.toolbar .toolbar-feedback {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	z-index: 20
+}
+.toolbar .toolbar-feedback i {
+	margin-top: 2px
+}
+
+.modal.modal-feedback {
+	width: 550px;
+	margin-left: -275px;
+	top: 50px
+}
+.modal.modal-feedback .modal-header {
+	margin-bottom: 0
+}
+.modal.modal-feedback .modal-content {
+	padding-top: 15px
+}
+.modal.modal-feedback .icon-question-sign {
+	position: relative;
+	top: -3px
+}
+.modal.modal-feedback .icon-ok-green {
+	position: relative;
+	top: -1px
+}
+
+.button-feedback {}

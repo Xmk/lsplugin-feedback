@@ -42,7 +42,10 @@ class PluginFeedback extends Plugin {
 		 * Подключаем JS
 		 */
 		$this->Viewer_AppendScript(Plugin::GetTemplatePath(__CLASS__).'js/feedback.js');
-
+		/**
+		 * Подключаем кнопку
+		 */
+		$this->Viewer_AddBlock('toolbar','toolbar_feedback.tpl',array('plugin'=>__CLASS__),-111);
 	}
 
 }

@@ -29,6 +29,7 @@ return array(
 	'captcha' => 'Enter the numbers and letters...',
 	'captcha_error' => 'Incorrect code',
 	'button_send' => 'Send',
+	'button' => 'Feedback',
 	'send_ok' => 'Congratulations! Your message has been sent.',
 
 	'login_problem' => 'Problems with authorization',

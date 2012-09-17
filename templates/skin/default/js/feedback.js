@@ -13,6 +13,26 @@ var ls=ls || {}
 
 ls.feedback = (function ($) {
 
+	this.initForm = function(isPopup) {
+		isPopup = isPopup ? true : false;
+		var form = isPopup ? 'popup-feedback-form' : 'feedback-form';
+		var submit = isPopup ? 'popup-feedback-form-submit' : 'feedback-form-submit';
+		if (typeof(form)=='string') {
+			form=$('#'+form);
+		}
+		if (typeof(submit)=='string') {
+			submit=$('#'+submit);
+		}
+		$(form).find('.js-ajax-validate').blur(function(e){
+			ls.feedback.validateField($(e.target).attr('name'),$(e.target).val(),$(form));
+		});
+		$(form).bind('submit',function(){
+			ls.feedback.send(form,isPopup);
+			return false;
+		});
+		$(submit).attr('disabled',false);
+	};
+
 	this.getMarkitup = function() {
 		return {
 			onShiftEnter:	{keepDefault:false, replaceWith:'<br />\n'},
@@ -99,7 +119,7 @@ ls.feedback = (function ($) {
 	 * Ajax отправка письма с проверкой полей формы
 	 * @param form
 	 */
-	this.send = function(form) {
+	this.send = function(form,isPopup) {
 		var url = aRouter['feedback']+'ajax/send/';
 
 		ls.user.formLoader(form);
@@ -121,7 +141,11 @@ ls.feedback = (function ($) {
 					});
 				} else {
 					if (result.sMsg) {
-						ls.msg.notice(null,result.sMsg);
+						//if (isPopup) {
+							//this.noticePopup(result.sMsg);
+						//} else {
+							ls.msg.notice(null,result.sMsg);
+						//}
 					}
 					this.clearFields(form);
 				}
@@ -136,14 +160,11 @@ ls.feedback = (function ($) {
 jQuery(document).ready(function($){
 	ls.hook.run('feedback_template_init_start',[],window);
 
-	$('#feedback-form').find('.js-ajax-validate').blur(function(e){
-		ls.feedback.validateField($(e.target).attr('name'),$(e.target).val(),$('#feedback-form'));
-	});
-	$('#feedback-form').bind('submit',function(){
-		ls.feedback.send('feedback-form');
-		return false;
-	});
-	$('#feedback-form-submit').attr('disabled',false);
+	// Инициализация формы
+	ls.feedback.initForm();
+
+	// Модальное окно
+	$('#modal_feedback').jqm({trigger: '.js-feedback-window-show'});
 
 	ls.hook.run('feedback_template_init_end',[],window);
 });
