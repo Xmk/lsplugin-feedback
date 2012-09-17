@@ -212,22 +212,26 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		 */
 		if (isPost('submit_feedback_settings')) {
 			$aData=array();
-			foreach (getRequest('mail',array(),'post') as $sMail) {
-				$aData['mail']=array();
-				$sMail=trim((string)$sMail);
-				if ($sMail) {
-					$aData['mail'][]=$sMail;
+			foreach (array('mail','acl') as $sGroup) {
+				$aData[$sGroup]=array();
+				foreach (getRequest($sGroup,array(),'post') as $sKey=>$sItem) {
+					$sItem=trim((string)$sItem);
+					if ($sItem) {
+						$aData[$sGroup][(string)$sKey]=$sItem;
+					}
 				}
 			}
-
 			if ($this->PluginFeedback_Feedback_SetSettings($aData)) {
-				$this->Message_AddNotice($this->Lang_Get('plugin.feedback.acl_save_ok'),null,1);
+				$this->Message_AddNotice($this->Lang_Get('plugin.feedback.acp_save_ok'),null,1);
 				Router::Location(Router::GetPath('feedback').'admin/');
 			} else {
 			}
 		} else {
 			$aSettings=$this->PluginFeedback_Feedback_GetSettings();
-			$this->Viewer_Assign('aSettings',$aSettings);
+			foreach ($aSettings as $sKey=>$sValue) {
+				$_REQUEST[$sKey]=$sValue;
+			}
+			//$this->Viewer_Assign('aSettings',$aSettings);
 		}
 	}
 

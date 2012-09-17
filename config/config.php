@@ -18,12 +18,6 @@ Config::Set('router.page.feedback', 'PluginFeedback_ActionFeedback');
  * Конфиг модуля "feedback" - обратная связь
  */
  
-/* Доступ гостям к обратной связи даже в "закрытом режиме" работы сайта */
-$config['close_enable']				= true;
-
-/* время в секундах между отправкой сообщений, если 0 то ограничение по времени не будет работать */
-$config['acl_limit_time']   		= 240;
-
 /* Выбор темы из выпадающего списка */
 $config['selected_titles']			= true;
 

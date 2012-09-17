@@ -26,9 +26,12 @@ class PluginFeedback_HookFeedback extends Hook {
 			/**
 			 * Разрешаем гостям юзать обратную связь даже при закрытом режиме сайта
 			 */
-			if (Config::Get('general.close') && Config::Get('plugin.feedback.close_enable') && stripos($_SERVER['REQUEST_URI'], 'feedback') && Router::GetAction()!='feedback') {
-				Router::Action('feedback');
-				return ;
+			$oSet = $this->GetSettingByKey('acl.close_enable');
+			if ($oSet && $oSet->getValue()) {
+				if (Config::Get('general.close') && stripos($_SERVER['REQUEST_URI'], 'feedback') && Router::GetAction()!='feedback') {
+					Router::Action('feedback');
+					return ;
+				}
 			}
 		}
 	}

@@ -36,20 +36,30 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 		$this->oUserCurrent=$this->User_GetUserCurrent();
 	}
 
-	public function GetSettings($sGroup=null) {
+	public function GetSettings($bGroup=0) {
 		$aRes = array();
 		$aSets = $this->GetSettingItemsAll();
 		foreach ($aSets as $oSet) {
-			$aRes[$oSet->getGroup()][]=$oSet;
+			if ($bGroup) {
+				$aRes[$oSet->getGroup()][]=$oSet;
+			} else {
+				$aKeys=explode('.',$oSet->getKey());
+				$sEval='$aRes';
+				foreach ($aKeys as $sK) {
+					$sEval.='['.var_export((string)$sK,true).']';
+				}
+				$sEval.='=$oSet;';
+				eval($sEval);
+			}
 		}
-		return $sGroup ? $aRes[$sGroup] : $aRes;
+		return $aRes;
 	}
 
 	public function SetSettings($aSets) {
 		if (!is_array($aSets)) {
 			return false;
 		}
-		$aSettings = $this->GetSettings($sGroup);
+		$aSettings = $this->GetSettings(1);
 
 		foreach ($aSets as $sGroup=>$aItems) {
 			//delete all old sets on this group
@@ -62,7 +72,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 			foreach ($aItems as $sKey=>$sValue) {
 				$oSet=LS::Ent('PluginFeedback_Feedback_Setting');
 				$oSet->setGroup($sGroup);
-				$oSet->setKey(is_string($sKey) ? $sKey : (string)$sGroup.$sKey);
+				$oSet->setKey((string)$sGroup.'.'.$sKey);
 				$oSet->setValue($sValue);
 				$oSet->Save();
 			}
@@ -109,7 +119,8 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 				);
 			}
 
-			fSetCookie('feedback', 1, 0, 0, 0, Config::Get('plugin.feedback.acl_limit_time'));
+			$iTimeLimit = (int)$this->GetSettingByKey('acl.limit_time');
+			fSetCookie('feedback', 1, 0, 0, 0, $iTimeLimit);
 
 			$aRes['state']=true;
 		} else {
