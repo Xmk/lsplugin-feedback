@@ -159,7 +159,8 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		 */
 		if ($oMsg->_Validate()) {
 			$this->Hook_Run('feedback_validate_after', array('oMsg'=>$oMsg));
-			if ($this->PluginFeedback_Feedback_Send($oMsg)) {
+			$aResult=$this->PluginFeedback_Feedback_Send($oMsg);
+			if ($aResult['state']) {
 				$this->Hook_Run('feedback_send_after', array('oMsg'=>$oMsg));
 				/**
 				 * Убиваем каптчу
@@ -170,7 +171,14 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 				 */
 				$this->Message_AddNoticeSingle($this->Lang_Get('plugin.feedback.send_ok'));
 			} else {
-				$this->Message_AddErrorSingle($this->Lang_Get('system_error'));
+				$aLangErr = '';
+				switch ($aResult['code']) {
+					case PluginFeedback_ModuleFeedback::ERROR_NOT_MAILS:
+					default:
+						$aLangErr='system_error';
+						break;
+				}
+				$this->Message_AddErrorSingle($this->Lang_Get($aLangErr));
 			}
 		} else {
 			/**
@@ -192,6 +200,35 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 	 * Показывает и обрабатывает админку
 	 */
 	protected function EventAdmin() {
+		if (!LS::Adm()) {
+			return parent::EventNotFound();
+		}
+		/**
+		 * Подключаем JS
+		 */
+		$this->Viewer_AppendScript($this->getTemplatePathPlugin().'js/feedback.admin.js');
+		/**
+		 * Была ли отправлена форма с данными
+		 */
+		if (isPost('submit_feedback_settings')) {
+			$aData=array();
+			foreach (getRequest('mail',array(),'post') as $sMail) {
+				$aData['mail']=array();
+				$sMail=trim((string)$sMail);
+				if ($sMail) {
+					$aData['mail'][]=$sMail;
+				}
+			}
+
+			if ($this->PluginFeedback_Feedback_SetSettings($aData)) {
+				$this->Message_AddNotice($this->Lang_Get('plugin.feedback.acl_save_ok'),null,1);
+				Router::Location(Router::GetPath('feedback').'admin/');
+			} else {
+			}
+		} else {
+			$aSettings=$this->PluginFeedback_Feedback_GetSettings();
+			$this->Viewer_Assign('aSettings',$aSettings);
+		}
 	}
 
 	/**
@@ -201,7 +238,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * Загружаем в шаблон необходимые переменные
 		 */
-        $this->Viewer_Assign('menu','feedback');
+		$this->Viewer_Assign('menu','feedback');
 		$this->Viewer_Assign('sMenuHeadItemSelect',$this->sMenuHeadItemSelect);
 		$this->Viewer_Assign('sTemplatePathPlugin',rtrim($this->getTemplatePathPlugin(),'/'));
 	}

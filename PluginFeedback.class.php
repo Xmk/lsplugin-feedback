@@ -20,6 +20,9 @@ class PluginFeedback extends Plugin {
 	 * Активация плагина
 	 */
 	public function Activate() {
+		if (!$this->isTableExists('prefix_feedback_setting')) {
+			$this->ExportSQL(dirname(__FILE__).'/sql/install.sql');
+		}
 		return true;
 	}
 
@@ -27,6 +30,9 @@ class PluginFeedback extends Plugin {
 	 * Деактивация плагина
 	 */
 	public function Deactivate() {
+		if (Config::Get('plugin.feedback.deactivate.delete')) {
+			$this->ExportSQL(dirname(__FILE__).'/sql/deinstall.sql');
+		}
 		return true;
 	}
 

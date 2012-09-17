@@ -11,16 +11,13 @@
 */
 
 /* Настройки роутинга */
-Config::Set('router.page.feedback',	'PluginFeedback_ActionFeedback');
+Config::Set('router.page.feedback', 'PluginFeedback_ActionFeedback');
 
 
 /**
  * Конфиг модуля "feedback" - обратная связь
  */
  
-/* Адресса электронной почты, на которые будут приходить письма (через запятую) */
-$config['mail']						= array('mail@mail.ru');
-
 /* Доступ гостям к обратной связи даже в "закрытом режиме" работы сайта */
 $config['close_enable']				= true;
 
@@ -29,6 +26,19 @@ $config['acl_limit_time']   		= 240;
 
 /* Выбор темы из выпадающего списка */
 $config['selected_titles']			= true;
+
+/**
+ * Активация плагина
+ */
+$config['activate'] = array();
+
+/**
+ * Деактивация плагина
+ */
+$config['deactivate'] = array(
+	/* Удаление таблиц при деактивации */
+	'delete' => true
+);
 
 
 return $config;
