@@ -48,7 +48,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 				foreach ($aKeys as $sK) {
 					$sEval.='['.var_export((string)$sK,true).']';
 				}
-				$sEval.='=$oSet;';
+				$sEval.='=$oSet->getValue();';
 				eval($sEval);
 			}
 		}
@@ -86,13 +86,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 	public function Send($oMsg) {
 		$aRes = array();
 
-		$aMails = array();
-
-		$aMailsSetting = $this->GetSettingItemsByGroup('mail');
-
-		foreach ($aMailsSetting as $oMail) {
-			$aMails[] = $oMail->getValue();
-		}
+		$aMails = Config::Get('plugin.feedback.mail');
 
 		if (!empty($aMails)) {
 			/**
@@ -119,7 +113,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 				);
 			}
 
-			$iTimeLimit = (int)$this->GetSettingByKey('acl.limit_time');
+			$iTimeLimit = (int)Config::Get('plugin.feedback.acl.limit_time');
 			fSetCookie('feedback', 1, 0, 0, 0, $iTimeLimit);
 
 			$aRes['state']=true;

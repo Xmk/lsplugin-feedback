@@ -52,6 +52,10 @@ class PluginFeedback extends Plugin {
 		 * Подключаем кнопку
 		 */
 		$this->Viewer_AddBlock('toolbar','toolbar_feedback.tpl',array('plugin'=>__CLASS__),-111);
+		/**
+		 * Load config
+		 */
+		Config::Set('plugin.feedback',$this->PluginFeedback_Feedback_GetSettings());
 	}
 
 }

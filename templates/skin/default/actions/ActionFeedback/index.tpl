@@ -24,6 +24,7 @@
 	<div class="wrapper-content">
 		{hook run='form_feedback_begin'}
 
+		{if $oConfig->GetValue('plugin.feedback.field.name')}
 		<dl class="form-item">
 			<dt><label for="feedback-name">{$aLang.plugin.feedback.send_name}:</label></dt>
 			<dd>
@@ -35,6 +36,7 @@
 				</div>
 			</dd>
 		</dl>
+		{/if}
 
 		<dl class="form-item">
 			<dt><label for="feedback-mail">{$aLang.plugin.feedback.send_mail}:</label></dt>
@@ -48,18 +50,19 @@
 			</dd>
 		</dl>
 
+		{if $oConfig->GetValue('plugin.feedback.field.title')}
 		<dl class="form-item">
 			<dt><label for="feedback-title">{$aLang.plugin.feedback.send_title}:</label></dt>
 			<dd>
-				{if !$oConfig->GetValue('plugin.feedback.selected_titles')}
-				<input type="text" name="title" id="feedback-title" value="{$_aRequest.title}" class="input-text input-width-400 js-ajax-validate" />
+				{if $oConfig->GetValue('plugin.feedback.field.title') == 1}
+					<input type="text" name="title" id="feedback-title" value="{$_aRequest.title}" class="input-text input-width-400 js-ajax-validate" />
 				{else}
-				<select name="title" id="feedback-title" class="input-width-400 js-ajax-validate">
-					<option value="">&nbsp;</option>
-					{foreach from=$aLang.plugin.feedback.titles item=sTitle}
-					<option value="{$sTitle}"{if $_aRequest.title==$sTitle} selected{/if}>{$sTitle}</option>
-					{/foreach}
-				</select>
+					<select name="title" id="feedback-title" class="input-width-400 js-ajax-validate">
+						<option value="">&nbsp;</option>
+						{foreach from=$oConfig->GetValue('plugin.feedback.title') item=sTitle}
+						<option value="{$sTitle}"{if $_aRequest.title==$sTitle} selected{/if}>{$sTitle}</option>
+						{/foreach}
+					</select>
 				{/if}
 				<small class="validate-error-hide validate-error-field-title"></small>
 				<div class="form-item-help form-item-help-title">
@@ -68,6 +71,7 @@
 				</div>
 			</dd>
 		</dl>
+		{/if}
 
 		<dl class="form-item">
 			<dt><label for="feedback-text">{$aLang.plugin.feedback.send_text}:</label></dt>

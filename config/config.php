@@ -13,27 +13,4 @@
 /* Настройки роутинга */
 Config::Set('router.page.feedback', 'PluginFeedback_ActionFeedback');
 
-
-/**
- * Конфиг модуля "feedback" - обратная связь
- */
- 
-/* Выбор темы из выпадающего списка */
-$config['selected_titles']			= true;
-
-/**
- * Активация плагина
- */
-$config['activate'] = array();
-
-/**
- * Деактивация плагина
- */
-$config['deactivate'] = array(
-	/* Удаление таблиц при деактивации */
-	'delete' => true
-);
-
-
-return $config;
 ?>

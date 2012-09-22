@@ -212,7 +212,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		 */
 		if (isPost('submit_feedback_settings')) {
 			$aData=array();
-			foreach (array('mail','acl') as $sGroup) {
+			foreach (array('mail','acl','field','title') as $sGroup) {
 				$aData[$sGroup]=array();
 				foreach (getRequest($sGroup,array(),'post') as $sKey=>$sItem) {
 					$sItem=trim((string)$sItem);
@@ -231,7 +231,6 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			foreach ($aSettings as $sKey=>$sValue) {
 				$_REQUEST[$sKey]=$sValue;
 			}
-			//$this->Viewer_Assign('aSettings',$aSettings);
 		}
 	}
 

@@ -21,13 +21,21 @@ class PluginFeedback_ModuleFeedback_EntityMsg extends Entity {
 	 * @var array
 	 */
 	protected $aValidateRules=array(
-		array('name','string','allowEmpty'=>false,'min'=>3,'max'=>30),
 		array('mail','email','allowEmpty'=>false),
-		array('title','string','allowEmpty'=>false,'min'=>3,'max'=>100),
 		array('text','string','allowEmpty'=>false,'min'=>10,'max'=>3000),
 		array('captcha','captcha'),
 		array('ip','time_limit')
 	);
+
+	public function Init() {
+		parent::Init();
+		if (Config::Get('plugin.feedback.field.name')) {
+			$this->aValidateRules[]=array('name','string','allowEmpty'=>false,'min'=>3,'max'=>30);
+		}
+		if (Config::Get('plugin.feedback.field.title')) {
+			$this->aValidateRules[]=array('title','string','allowEmpty'=>false,'min'=>3,'max'=>100);
+		}
+	}
 
 	/**
 	 * Проверка на ограничение по времени

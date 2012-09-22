@@ -18,11 +18,13 @@
 			<p>
 			<small class="validate-error-hide validate-error-field-ip"></small></p>
 
+			{if $oConfig->GetValue('plugin.feedback.field.name')}
 			<p>
 			<input type="text" name="name" placeholder="{$aLang.plugin.feedback.send_name}" id="popup-feedback-name" value="{$_aRequest.name}" class="input-text input-width-400 js-ajax-validate" />
 			<i class="icon-question-sign js-tip-help" title="{$aLang.plugin.feedback.send_name_notice}"></i>
 			<i class="icon-ok-green validate-ok-field-name" style="display: none"></i>
 			<small class="validate-error-hide validate-error-field-name"></small></p>
+			{/if}
 
 			<p>
 			<input type="text" name="mail" placeholder="{$aLang.plugin.feedback.send_mail}" id="popup-feedback-mail" value="{$_aRequest.mail}" class="input-text input-width-400 js-ajax-validate" />
@@ -30,20 +32,22 @@
 			<i class="icon-ok-green validate-ok-field-mail" style="display: none"></i>
 			<small class="validate-error-hide validate-error-field-mail"></small></p>
 
+			{if $oConfig->GetValue('plugin.feedback.field.title')}
 			<p>
-			{if !$oConfig->GetValue('plugin.feedback.selected_titles')}
-			<input type="text" name="title" placeholder="{$aLang.plugin.feedback.send_title}" id="popup-feedback-title" value="{$_aRequest.title}" class="input-text input-width-300 js-ajax-validate" />
+			{if $oConfig->GetValue('plugin.feedback.field.title') == 1}
+				<input type="text" name="title" placeholder="{$aLang.plugin.feedback.send_title}" id="popup-feedback-title" value="{$_aRequest.title}" class="input-text input-width-300 js-ajax-validate" />
 			{else}
-			<select name="title" id="popup-feedback-title" class="input-text input-width-400 js-ajax-validate">
-				<option value="">{$aLang.plugin.feedback.send_title}</option>
-				{foreach from=$aLang.plugin.feedback.titles item=sTitle}
-				<option value="{$sTitle}"{if $_aRequest.title==$sTitle} selected{/if}>{$sTitle}</option>
-				{/foreach}
-			</select>
+				<select name="title" id="popup-feedback-title" class="input-text input-width-400 js-ajax-validate">
+					<option value="">{$aLang.plugin.feedback.send_title}</option>
+					{foreach from=$oConfig->GetValue('plugin.feedback.title') item=sTitle}
+					<option value="{$sTitle}"{if $_aRequest.title==$sTitle} selected{/if}>{$sTitle}</option>
+					{/foreach}
+				</select>
 			{/if}
 			<i class="icon-question-sign js-tip-help" title="{$aLang.plugin.feedback.send_title_notice}"></i>
 			<i class="icon-ok-green validate-ok-field-title" style="display: none"></i>
 			<small class="validate-error-hide validate-error-field-title"></small></p>
+			{/if}
 
 			<p>
 			<label for="text">{$aLang.plugin.feedback.send_text}:</label>

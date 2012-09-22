@@ -26,9 +26,30 @@ ls.feedback.admin = (function ($) {
 		return false;
 	};
 
+	this.addFormTitle = function() {
+		var tpl=$('#setting_title_template').clone();
+		$('#setting-title-container').append(tpl.show());
+		return false;
+	};
+
+	this.deleteTitle = function(o) {
+		$(o).parent('.js-setting-title-item').detach();
+		return false;
+	};
+
 	return this;
 }).call(ls.feedback || {},jQuery);
 
 jQuery(document).ready(function($){
+
+	$('#field_title_list').change(function() {
+		$('#setting-title-container').parent('.wrapper-content').show()
+	});
+	$('#field_title_yes').change(function() {
+		$('#setting-title-container').parent('.wrapper-content').hide()
+	});
+	$('#field_title_no').change(function() {
+		$('#setting-title-container').parent('.wrapper-content').hide()
+	});
 
 });
