@@ -59,5 +59,23 @@
 	position: relative;
 	top: -1px
 }
+.modal.modal-feedback .feedback-copyright {
+	text-align: center;
+	float: none
+}
+.modal.modal-feedback .feedback-copyright span {
+	color: #999;
+	padding: 4px 15px;
+	display: inline
+}
+
+.feedback-copyright {
+	float: right;
+	clear: both
+}
+.feedback-copyright span {
+	font-size: 10px;
+	display: block
+}
 
 .button-feedback {}

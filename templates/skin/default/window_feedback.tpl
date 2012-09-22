@@ -68,4 +68,5 @@
 		</form>
 	</div>
 	{/strip}
+	{hook run='feedback_copyright'}
 </div>

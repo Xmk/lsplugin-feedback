@@ -17,6 +17,7 @@ class PluginFeedback_HookFeedback extends Hook {
 	 */
 	public function RegisterHook() {
 		$this->AddHook('init_action', 'InitAction', __CLASS__);
+		$this->AddHook('template_feedback_copyright','FeedbackCopyright');
 		$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
 	}
 
@@ -26,7 +27,7 @@ class PluginFeedback_HookFeedback extends Hook {
 			/**
 			 * Разрешаем гостям юзать обратную связь даже при закрытом режиме сайта
 			 */
-			$oSet = $this->GetSettingByKey('acl.close_enable');
+			$oSet = $this->PluginFeedback_Feedback_GetSettingByKey('acl.close_enable');
 			if ($oSet && $oSet->getValue()) {
 				if (Config::Get('general.close') && stripos($_SERVER['REQUEST_URI'], 'feedback') && Router::GetAction()!='feedback') {
 					Router::Action('feedback');
@@ -34,6 +35,16 @@ class PluginFeedback_HookFeedback extends Hook {
 				}
 			}
 		}
+	}
+
+	public function FeedbackCopyright() {
+		$aPlugins=$this->Plugin_GetList();
+		if (!(isset($aPlugins['feedback']))) {
+			return;
+		}
+		$aFeedbackData=$aPlugins['feedback']['property'];
+		$this->Viewer_Assign('aFeedbackData',$aFeedbackData);
+		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'copyright.tpl');
 	}
 
 	/**

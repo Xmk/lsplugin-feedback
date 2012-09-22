@@ -115,4 +115,5 @@
 	</div>
 </form>
 
+{hook run='feedback_copyright'}
 {include file='footer.tpl'}
