@@ -57,8 +57,14 @@ jQuery(document).ready(function($){
 
 	var container=$('#setting-title-container').parent('.wrapper-content');
 
-	$('#field_title_list').change(container.show);
-	$('#field_title_yes').change(container.hide);
-	$('#field_title_no').change(container.hide);
-
+	$('input:radio[name=field[title]]').change(function(e){
+		var checkbox=$(e.target);
+		if (checkbox.attr('checked')) {
+			if (checkbox.val() < 2) {
+				container.hide();
+			} else {
+				container.show();
+			}
+		}
+	});
 });

@@ -66,8 +66,8 @@
 			<p>
 				<label for="field_title">{$aLang.plugin.feedback.acp_fields_title}</label>
 				<label><input type="radio" class="radio" name="field[title]" id="field_title_no" value="0"{if !$aFields.title} checked{/if}> {$aLang.plugin.feedback.acp_field_hide}</label>
-				<label><input type="radio" class="radio" name="field[title]" id="field_title_yes" value="1"{if $aFields.title == 1} checked{/if}> {$aLang.plugin.feedback.acp_field_show}</label>
-				<label><input type="radio" class="radio" name="field[title]" id="field_title_list" value="2"{if $aFields.title == 2} checked{/if}> {$aLang.plugin.feedback.acp_field_list}</label>
+				<label><input type="radio" class="radio" name="field[title]" id="field_title_yes" value="1"{if $aFields.title == 1} checked{/if}> {$aLang.plugin.feedback.acp_field_show} {$aLang.plugin.feedback.acp_field_input|lower}</label>
+				<label><input type="radio" class="radio" name="field[title]" id="field_title_list" value="2"{if $aFields.title == 2} checked{/if}> {$aLang.plugin.feedback.acp_field_show} {$aLang.plugin.feedback.acp_field_list|lower}</label>
 			</p>
 		</div>
 	</div>
