@@ -1,4 +1,6 @@
+{if $sName}
 <strong>Имя пользователя:</strong> {$sName}<br/>
+{/if}
 <strong>Обратный адресс:</strong> {$sMail}<br/>
 <br/>
 <strong>IP адресс, с которого было отправлено письмо:</strong><br/>

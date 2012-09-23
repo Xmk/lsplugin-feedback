@@ -15,41 +15,50 @@ ls.feedback = ls.feedback || {}
 
 ls.feedback.admin = (function ($) {
 
-	this.addFormMail = function() {
-		var tpl=$('#setting_mail_template').clone();
-		$('#setting-mail-container').append(tpl.show());
+	this.addItemToList = function(item) {
+		var c=$('#setting-'+item+'-container');
+		var t=$('#setting_'+item+'_template');
+		if (c && t) {
+			c.append(t.clone().show());
+			return true;
+		}
+		return false;
+	};
+	this.delItemFromList = function(o,item) {
+		if ($(o)) {
+			var it=$(o).parent('.js-setting-'+item+'-item')
+			if (it) {
+				it.detach();
+				return true;
+			}
+		}
 		return false;
 	};
 
+	this.addFormMail = function() {
+		return !this.addItemToList('mail');
+	};
 	this.deleteMail = function(o) {
-		$(o).parent('.js-setting-mail-item').detach();
-		return false;
+		return !this.delItemFromList(o,'mail');
 	};
 
 	this.addFormTitle = function() {
-		var tpl=$('#setting_title_template').clone();
-		$('#setting-title-container').append(tpl.show());
-		return false;
+		return !this.addItemToList('title');
 	};
-
 	this.deleteTitle = function(o) {
-		$(o).parent('.js-setting-title-item').detach();
-		return false;
+		return !this.delItemFromList(o,'title');
 	};
 
 	return this;
 }).call(ls.feedback || {},jQuery);
 
+
 jQuery(document).ready(function($){
 
-	$('#field_title_list').change(function() {
-		$('#setting-title-container').parent('.wrapper-content').show()
-	});
-	$('#field_title_yes').change(function() {
-		$('#setting-title-container').parent('.wrapper-content').hide()
-	});
-	$('#field_title_no').change(function() {
-		$('#setting-title-container').parent('.wrapper-content').hide()
-	});
+	var container=$('#setting-title-container').parent('.wrapper-content');
+
+	$('#field_title_list').change(container.show);
+	$('#field_title_yes').change(container.hide);
+	$('#field_title_no').change(container.hide);
 
 });

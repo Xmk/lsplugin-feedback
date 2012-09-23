@@ -92,7 +92,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 			/**
 			 * Собираем данные
 			 */
-			$sSendTitle = $oMsg->getTitle();
+			$sSendTitle = ($oMsg->getTitle() || $this->Lang_Get('plugin.feedback.notify_title'));
 			$aSendContent = array(
 				'sIp' => $oMsg->getIp(),
 				'sName' => $oMsg->getName(),

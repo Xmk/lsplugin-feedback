@@ -17,7 +17,7 @@ return array(
 	'feedback' => 'Обратная связь',
 	'send_spam_error' => 'Стоп! Спам!',
 	'send_name' => 'Ваше имя',
-	'send_name_error' => 'Имя введено неверно',
+	'send_name_notice' => 'The name can not be less than 3 and 20 characters.',
 	'send_mail' => 'E-Mail',
 	'send_mail_notice' => 'E-mail для обратной связи с вами',
 	'send_title' => 'Тема',
@@ -55,13 +55,7 @@ return array(
 
 	'error_no_mails' => '',
 
-	// Выпадающий список
-	'titles' => array(
-		'Проблемы с авторизацией',
-		'Проблемы с регистрацией',
-		'Вопросы по сайту',
-
-	),
+	'notify_title' => 'Новый отзыв на вашем сайте',
 
 );
 

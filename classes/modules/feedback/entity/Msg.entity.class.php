@@ -29,12 +29,8 @@ class PluginFeedback_ModuleFeedback_EntityMsg extends Entity {
 
 	public function Init() {
 		parent::Init();
-		if (Config::Get('plugin.feedback.field.name')) {
-			$this->aValidateRules[]=array('name','string','allowEmpty'=>false,'min'=>3,'max'=>30);
-		}
-		if (Config::Get('plugin.feedback.field.title')) {
-			$this->aValidateRules[]=array('title','string','allowEmpty'=>false,'min'=>3,'max'=>100);
-		}
+		$this->aValidateRules[]=array('name','string','allowEmpty'=>!Config::Get('plugin.feedback.field.name'),'min'=>3,'max'=>30);
+		$this->aValidateRules[]=array('title','string','allowEmpty'=>!Config::Get('plugin.feedback.field.title'),'min'=>3,'max'=>100);
 	}
 
 	/**

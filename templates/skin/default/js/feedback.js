@@ -12,7 +12,10 @@
 var ls=ls || {}
 
 ls.feedback = (function ($) {
-
+	/**
+	 * Инициализация формы обратной связи
+	 * @param	isPopup
+	 */
 	this.initForm = function(isPopup) {
 		isPopup = isPopup ? true : false;
 		var form = isPopup ? 'popup-feedback-form' : 'feedback-form';
@@ -33,6 +36,10 @@ ls.feedback = (function ($) {
 		$(submit).attr('disabled',false);
 	};
 
+	/**
+	 * Настройки для редактора
+	 * @return	hash
+	 */
 	this.getMarkitup = function() {
 		return {
 			onShiftEnter:	{keepDefault:false, replaceWith:'<br />\n'},
@@ -57,8 +64,8 @@ ls.feedback = (function ($) {
 	};
 
 	/**
-	 * Очиска полей
-	 * @param form
+	 * Очиска полей формы обратной связи
+	 * @param	form
 	 */
 	this.clearFields = function(form) {
 		if (typeof(form)=='string') {
@@ -73,7 +80,7 @@ ls.feedback = (function ($) {
 	};
 
 	/**
-	 * Валидация полей формы при регистрации
+	 * Валидация полей формы обратной связи
 	 * @param aFields
 	 * @param sForm
 	 */
@@ -87,7 +94,7 @@ ls.feedback = (function ($) {
 		ls.hook.marker('validateFeedbackFieldsBefore');
 		ls.ajax(url, params, function(result) {
 			if (!sForm) {
-				sForm=$('body'); // поиск полей по всей странице
+				sForm=$('body');
 			}
 			$.each(aFields,function(i,aField){
 				if (result.aErrors && result.aErrors[aField.field][0]) {
@@ -104,10 +111,10 @@ ls.feedback = (function ($) {
 
 	/**
 	 * Валидация конкретного поля формы
-	 * @param sField
-	 * @param sValue
-	 * @param sForm
-	 * @param aParams
+	 * @param	sField
+	 * @param	sValue
+	 * @param	sForm
+	 * @param	aParams
 	 */
 	this.validateField = function(sField,sValue,sForm,aParams) {
 		var aFields=[];
@@ -117,7 +124,8 @@ ls.feedback = (function ($) {
 
 	/**
 	 * Ajax отправка письма с проверкой полей формы
-	 * @param form
+	 * @param	form
+	 * @param	isPopup
 	 */
 	this.send = function(form,isPopup) {
 		var url = aRouter['feedback']+'ajax/send/';
@@ -156,6 +164,7 @@ ls.feedback = (function ($) {
 
 	return this;
 }).call(ls.feedback || {},jQuery);
+
 
 jQuery(document).ready(function($){
 	ls.hook.run('feedback_template_init_start',[],window);
