@@ -2,6 +2,20 @@
  * Feedback
  */
 
+#filter_comment { width: 420px }
+
+.input-feedback-ip { text-align: center; width: 40px }
+
+.ip-block { float: left; margin: 5px 30px 15px 0 }
+
+.iplist { }
+.iplist #ip_black_list li  { background: #aaa }
+.iplist #ip_white_list li { background: #eee }
+.iplist li { margin-bottom: 1px; padding: 10px 10px; line-height: 12px; color: #777; overflow: hidden; zoom: 1 }
+.iplist_ip { font-weight: bold; color: #333 }
+.iplist_comment { line-height: 150%; font-size: 10px }
+.iplist_actions { float: right }
+
 .feedback-form .form-item:last-child { margin-bottom: 0 }
 .feedback-form dl.form-item dd { position: relative; width: 505px }
 .feedback-form dl.form-item dd .markItUp { width: 400px }

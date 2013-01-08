@@ -49,8 +49,45 @@ ls.feedback.admin = (function ($) {
 		return !this.delItemFromList(o,'title');
 	};
 
+	this.checkWriterStatus = function() {
+		var status=ls.registry.get('copywriter'), el;
+		for (var i=1;i<=4;i++) {
+			el=$('#filter_ip2_'+i).attr('readonly',status ? false : 'readonly');
+			if (!status) {
+				el.val($('#filter_ip1_'+i).val());
+			}
+		}
+	};
+
+	this.copyWriterEnabler = function(status) {
+		ls.registry.set('copywriter',status);
+		this.checkWriterStatus();
+	};
+
+	this.copyWriter = function(e) {
+		if (!ls.registry.get('copywriter')) {
+			var oField=$(e.target);
+			var idField=oField.attr('id').replace('filter_ip1_','filter_ip2_');
+			$('#'+idField).val(oField.val());
+		}
+	};
+
+	this.deleteIp = function(hash) {
+		if (!confirm(ls.lang.get('plugin.feedback.acp_ip_del_confirm'))) return false;
+
+		ls.ajax(aRouter['feedback']+'ajax/deleteip/', { hash:hash }, function(result) {
+			if (result.bStateError) {
+				ls.msg.error(null,result.sMsg);
+			} else {
+				if (result.sMsg) ls.msg.notice(null,result.sMsg);
+				$('#ip_'+result.sId).detach();
+			}
+		}.bind(this));
+		return false;
+	};
+
 	return this;
-}).call(ls.feedback || {},jQuery);
+}).call(ls.feedback.admin || {},jQuery);
 
 
 jQuery(document).ready(function($){
@@ -67,4 +104,8 @@ jQuery(document).ready(function($){
 			}
 		}
 	});
+
+	$('input.input-feedback-ip.js-cp').keyup(ls.feedback.admin.copyWriter);
+
+	ls.feedback.admin.checkWriterStatus();
 });

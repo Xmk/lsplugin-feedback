@@ -17,6 +17,18 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 	 * @var string
 	 */
 	protected $sMenuHeadItemSelect='feedback';
+	/**
+	 * Меню
+	 *
+	 * @var string
+	 */
+	protected $sMenuItemSelect='main';
+	/**
+	 * Подменю
+	 *
+	 * @var string
+	 */
+	protected $sMenuSubItemSelect='';
 
 	/**
 	 * Инизиализация экшена
@@ -52,6 +64,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * AJAX Обработчики
 		 */
+		$this->AddEventPreg('/^ajax$/i','/^deleteip$/','EventAjaxDeleteip');
 		$this->AddEventPreg('/^ajax$/i','/^validate$/','EventAjaxValidate');
 		$this->AddEventPreg('/^ajax$/i','/^send$/','EventAjaxSend');
 	}
@@ -60,6 +73,49 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 	 ************************ РЕАЛИЗАЦИЯ ЭКШЕНА ***************************************
 	 **********************************************************************************
 	 */
+
+	/**
+	 * Удаление IP
+	 *
+	 */
+	protected function EventAjaxDeleteip() {
+		/**
+		 * Устанавливаем формат Ajax ответа
+		 */
+		$this->Viewer_SetResponseAjax('json');
+		/**
+		 * Читаем параметры
+		 */
+		$sHash=getRequest('hash');
+		/**
+		 * Декодируем хэш
+		 */
+		require_once Config::Get('path.root.engine').'/lib/external/XXTEA/encrypt.php';
+		$aIps=xxtea_decrypt(base64_decode(rawurldecode($sHash)),Config::Get('plugin.feedback.encrypt'));
+		if (!$aIps) {
+			$this->Message_AddErrorSingle($this->Lang_Get('plugin.feedback.acp_ip_del_error'),$this->Lang_Get('error'));
+			return;
+		}
+		list($sIpFrom,$sIpTo)=explode('_',$aIps);
+		/**
+		 * Получаем объект IP
+		 */
+		if (!($oIp=$this->PluginFeedback_Feedback_GetIpByFromAndTo($sIpFrom,$sIpTo))) {
+			$this->Message_AddErrorSingle($this->Lang_Get('system_error'),$this->Lang_Get('error'));
+			return false;
+		}
+		/**
+		 * Удаляем
+		 */
+		$sId=$oIp->getId();
+		$oIp->Delete();
+		/**
+		 * Передаем результат в ajax ответ
+		 */
+		$this->Viewer_AssignAjax('sId',$sId);
+		$this->Message_AddNoticeSingle($this->Lang_Get('plugin.feedback.acp_ip_del_ok'));
+		return true;
+	}
 
 	/**
 	 * Ajax валидация формы
@@ -165,7 +221,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 				/**
 				 * Убиваем каптчу
 				 */
-				unset($_SESSION['captcha_keystring']);
+				unset($_SESSION['captcha']);
 				/**
 				 * Выводим уведомление
 				 */
@@ -173,6 +229,12 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			} else {
 				$aLangErr = '';
 				switch ($aResult['code']) {
+					case PluginFeedback_ModuleFeedback::ERROR_IN_BLACKLIST:
+						$aLangErr='plugin.feedback.send_in_blacklist';
+						break;
+					case PluginFeedback_ModuleFeedback::ERROR_IN_TIMELIMIT:
+						$aLangErr='plugin.feedback.send_spam_error';
+						break;
 					case PluginFeedback_ModuleFeedback::ERROR_NOT_MAILS:
 					default:
 						$aLangErr='system_error';
@@ -204,15 +266,40 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			return parent::EventNotFound();
 		}
 		/**
+		 * Меню
+		 */
+		$this->sMenuItemSelect='admin';
+		/**
 		 * Подключаем JS
 		 */
 		$this->Viewer_AppendScript($this->getTemplatePathPlugin().'js/feedback.admin.js');
+
+		$sCategory=$this->GetParam(0);
+		$sAction=$this->GetParam(1);
+
+		/**
+		 * Раздел админки
+		 */
+		switch ($sCategory) {
+			case 'filter':
+				return $this->_adminEventFilter();
+			case null:
+				return $this->_adminEventMain();
+			default:
+				return parent::EventNotFound();
+		}
+	}
+	/**
+	 * Главная страница админцентра
+	 */
+	protected function _adminEventMain() {
+		$this->sMenuSubItemSelect='main';
 		/**
 		 * Была ли отправлена форма с данными
 		 */
 		if (isPost('submit_feedback_settings')) {
 			$aData=array();
-			foreach (array('mail','acl','field','title') as $sGroup) {
+			foreach (array('mail','acl','field','title','deactivate') as $sGroup) {
 				$aData[$sGroup]=array();
 				foreach (getRequest($sGroup,array(),'post') as $sKey=>$sItem) {
 					$sItem=trim((string)$sItem);
@@ -225,6 +312,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 				$this->Message_AddNotice($this->Lang_Get('plugin.feedback.acp_save_ok'),null,1);
 				Router::Location(Router::GetPath('feedback').'admin/');
 			} else {
+
 			}
 		} else {
 			$aSettings=$this->PluginFeedback_Feedback_GetSettings();
@@ -232,7 +320,72 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 				$_REQUEST[$sKey]=$sValue;
 			}
 		}
+		/**
+		 * Устанавливаем шаблон вывода
+		 */
+		$this->SetTemplateAction('admin/main');
 	}
+	/**
+	 * Списки фильтров
+	 */
+	protected function _adminEventFilter() {
+		$this->sMenuSubItemSelect='filter';
+		/**
+		 * Была ли отправлена форма с данными
+		 */
+		if (isPost('filter_ip_submit')) {
+			$aIPs=getRequest('filter_ip',array());
+
+			$sIP1=implode('.',$aIPs[1]);
+			if (!isset($aIPs[2])) $aIPs[2] = $aIPs[1];
+			$sIP2=implode('.',$aIPs[2]);
+
+			if (!(ip2long($sIP1) && ip2long($sIP2))) {
+				return false;
+			}
+			$oIp=LS::Ent('PluginFeedback_Feedback_Ip');
+			$oIp->setGroup(getRequest('filter_type'));
+			$oIp->setComment(getRequest('filter_comment'));
+			$oIp->setFrom(ip2int($sIP1));
+			$oIp->setTo(ip2int($sIP2));
+			/**
+			 * Код
+			 */
+			require_once Config::Get('path.root.engine').'/lib/external/XXTEA/encrypt.php';
+			$sCode=$oIp->getFrom().'_'.$oIp->getTo();
+			$sCode=rawurlencode(base64_encode(xxtea_encrypt($sCode,Config::Get('plugin.feedback.encrypt'))));
+			$oIp->setHash($sCode);
+
+			if ($oIp->Save()) {
+				$this->Message_AddNotice($this->Lang_Get('plugin.feedback.acp_save_ok'),null,1);
+				Router::Location(Router::GetPath('feedback').'admin/filter/');
+			} else {
+
+				Router::Location(Router::GetPath('feedback').'admin/filter/');
+			}
+		} else {
+			$aIpList=$this->PluginFeedback_Feedback_GetIpItemsAll();
+			$aSortList=array('white'=>array(),'black'=>array());
+			foreach ($aIpList as $oIp) {
+				$aSortList[$oIp->getGroup()][]=$oIp;
+			}
+			$this->Viewer_Assign('aWhiteList',$aSortList['white']);
+			$this->Viewer_Assign('aBlackList',$aSortList['black']);
+		}
+		/**
+		 * Устанавливаем шаблон вывода
+		 */
+		$this->SetTemplateAction('admin/filter');
+		/**
+		 * Загружаем в шаблон JS текстовки
+		 */
+		$this->Lang_AddLangJs(
+			array(
+				'plugin.feedback.acp_ip_del_confirm'
+			)
+		);
+	}
+
 
 	/**
 	 * Завершение работы экшена
@@ -243,6 +396,8 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		 */
 		$this->Viewer_Assign('menu','feedback');
 		$this->Viewer_Assign('sMenuHeadItemSelect',$this->sMenuHeadItemSelect);
+		$this->Viewer_Assign('sMenuItemSelect',$this->sMenuItemSelect);
+		$this->Viewer_Assign('sMenuSubItemSelect',$this->sMenuSubItemSelect);
 		$this->Viewer_Assign('sTemplatePathPlugin',rtrim($this->getTemplatePathPlugin(),'/'));
 	}
 }

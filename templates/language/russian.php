@@ -32,6 +32,9 @@ return array(
 	'send_ok' => 'Поздравляем! Ваше письмо успешно отправлено',
 
 	'acp' => 'Настройки модуля',
+	'acp_menu_main' => 'Настройки',
+	'acp_menu_filter' => 'Фильтры',
+	'acp_filter' => 'Настройка фильтров',
 	'acp_mails' => 'Список E-Mail',
 	'acp_mails_note' => 'Список адресов, на которые будут приходить письма',
 	'acp_mail_add' => 'Добавить адрес',
@@ -53,8 +56,21 @@ return array(
 	'acp_title_delete' => 'Удалить тему',
 	'acp_save' => 'Сохранить настройки',
 	'acp_save_ok' => 'Настройки сохранены',
+	'acp_black_list' => 'Черный список',
+	'acp_black_list_comment' => 'Комментарий',
+	'acp_white_list' => 'Белый список',
+	'acp_ip_add' => 'Добавить IP в',
+	'acp_ip_del' => 'Удалить IP из списка',
+	'acp_ip_del_confirm' => 'Удалить?',
+	'acp_ip_del_error' => 'Ошибка безопасности',
+	'acp_ip_del_ok' => 'Удачно',
+	'acp_sys' => 'Системная конфигурация',
+	'acp_sys_note' => '',
+	'acp_sys_deactivate' => 'Деактивация плагина',
+	'acp_sys_deactivate_delete' => 'Удаление таблиц плагина',
 
 	'error_no_mails' => '',
+	'send_in_blacklist' => 'Ваш IP адресс находится в черном списке',
 
 	'notify_title' => 'Новый отзыв на вашем сайте',
 

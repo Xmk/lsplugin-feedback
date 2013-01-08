@@ -35,7 +35,7 @@
 			{if $oConfig->GetValue('plugin.feedback.field.title')}
 			<p>
 			{if $oConfig->GetValue('plugin.feedback.field.title') == 1}
-				<input type="text" name="title" placeholder="{$aLang.plugin.feedback.send_title}" id="popup-feedback-title" value="{$_aRequest.title}" class="input-text input-width-300 js-ajax-validate" />
+				<input type="text" name="title" placeholder="{$aLang.plugin.feedback.send_title}" id="popup-feedback-title" value="{$_aRequest.title}" class="input-text input-width-400 js-ajax-validate" />
 			{else}
 				<select name="title" id="popup-feedback-title" class="input-text input-width-400 js-ajax-validate">
 					<option value="">{$aLang.plugin.feedback.send_title}</option>

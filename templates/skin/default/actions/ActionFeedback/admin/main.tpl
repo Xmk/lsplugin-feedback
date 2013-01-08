@@ -2,6 +2,8 @@
 
 <h2 class="page-header"><a href="{router page='feedback'}">{$aLang.plugin.feedback.feedback}</a> <span>&raquo;</span> {$aLang.plugin.feedback.acp}</h2>
 
+{include file="$sTemplatePathPlugin/menu.feedback.admin.tpl"}
+
 <form action="{router page='feedback'}admin/" method="post">
 	<div class="wrapper-content">
 		<p id="setting_mail_template" style="display:none" class="js-setting-mail-item">
@@ -85,6 +87,22 @@
 		{/foreach}
 		</div>
 		<a href="#" onclick="return ls.feedback.admin.addFormTitle()" class="link-dotted">{$aLang.plugin.feedback.acp_title_add}</a>
+	</div>
+
+	<div class="wrapper-content wrapper-content-dark">
+		<h3>{$aLang.plugin.feedback.acp_sys}</h3>
+		<span class="note">{$aLang.plugin.feedback.acp_sys_note}</span>
+
+		<div id="setting-sys-container">
+			{assign var="aDeactivate" value=$_aRequest.deactivate}
+			<h3>{$aLang.plugin.feedback.acp_sys_deactivate}</h3>
+			<p>
+				<label>
+					<input type="checkbox" class="input-checkbox" name="deactivate[delete]" id="deactivate_delete" value="1"{if $aDeactivate.delete} checked{/if}>
+					{$aLang.plugin.feedback.acp_sys_deactivate_delete}
+				</label>
+			</p>
+		</div>
 	</div>
 
 	<div class="wrapper-content">

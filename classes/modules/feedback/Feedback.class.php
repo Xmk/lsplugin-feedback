@@ -15,7 +15,9 @@
  *
  */
 class PluginFeedback_ModuleFeedback extends ModuleORM {
-	const ERROR_NOT_MAILS	= 100;
+	const ERROR_NOT_MAILS		= 100;
+	const ERROR_IN_BLACKLIST	= 201;
+	const ERROR_IN_TIMELIMIT	= 202;
 
 	/**
 	 * Объект текущего пользователя
@@ -90,16 +92,37 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 
 		if (!empty($aMails)) {
 			/**
+			 * Проверяем IP по спискам
+			 */
+			$bInBlackList = false;
+			$bInWhiteList = false;
+			$aIpList = $this->PluginFeedback_Feedback_GetIpItemsAll();
+			foreach ($aIpList as $oIp) {
+				$iChekIp = ip2int($oMsg->getIp());
+				$iFromIp = $oIp->getIpFrom();
+				$iToIp = $oIp->getIpTo();
+				if ($iChekIp >= $iFromIp && $iChekIp <= $iToIp) {
+				//if (bound($iChekIp, $iFromIp, $iToIp)) {
+					$bInBlackList = (bool)($oIp->getGroup() == 'black');
+					$bInWhiteList = (bool)($oIp->getGroup() == 'white');
+				}
+			}
+			if ($bInBlackList) {
+				return array('state'=>false,'code'=>self::ERROR_IN_BLACKLIST);
+			}
+			if ($this->CanWrite() && !$bInWhiteList) {
+				return array('state'=>false,'code'=>self::ERROR_IN_TIMELIMIT);
+			}
+			/**
 			 * Собираем данные
 			 */
-			$sSendTitle = ($oMsg->getTitle() || $this->Lang_Get('plugin.feedback.notify_title'));
+			$sSendTitle = $oMsg->getTitle() ? $oMsg->getTitle() : $this->Lang_Get('plugin.feedback.notify_title');
 			$aSendContent = array(
 				'sIp' => $oMsg->getIp(),
 				'sName' => $oMsg->getName(),
 				'sMail' => $oMsg->getMail(),
 				'sText' => $oMsg->getText()
 			);
-
 			/**
 			 * Отправляем письмо
 			 */
@@ -112,14 +135,15 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 					__CLASS__
 				);
 			}
-
-			$iTimeLimit = (int)Config::Get('plugin.feedback.acl.limit_time');
-			fSetCookie('feedback', 1, 0, 0, 0, $iTimeLimit);
-
-			$aRes['state']=true;
+			if (!$bInWhiteList) {
+				$iTimeLimit = (int)Config::Get('plugin.feedback.acl.limit_time');
+				//fSetCookie('feedback', md5(func_getIp()), 0, 0, 0, $iTimeLimit);
+				setcookie(md5(func_getIp()), '', time()+$iTimeLimit, Config::Get('sys.cookie.path'), Config::Get('sys.cookie.host'));
+			}
+			$aRes['state'] = true;
 		} else {
-			$aRes['state']=false;
-			$aRes['code']=self::ERROR_NOT_MAILS;
+			$aRes['state'] = false;
+			$aRes['code'] = self::ERROR_NOT_MAILS;
 		}
 		return $aRes;
 	}
@@ -129,7 +153,8 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 	 *
 	 */
 	public function CanWrite() {
-		return !fGetCookie('feedback');
+		//return !fGetCookie(md5(func_getIp()));
+		return !isset($_COOKIE[md5(func_getIp())]);
 	}
 }
 ?>

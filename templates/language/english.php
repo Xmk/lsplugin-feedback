@@ -32,6 +32,8 @@ return array(
 	'send_ok' => 'Congratulations! Your message has been sent.',
 
 	'acp' => 'Module configuration',
+	'acp_main' => 'Settings',
+	'acp_filter' => 'Filters',
 	'acp_mails' => 'EMail list',
 	'acp_mails_note' => 'Email list addresses that will receive the message',
 	'acp_mail_add' => 'Add the address',

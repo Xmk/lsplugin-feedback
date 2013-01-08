@@ -5,13 +5,24 @@
 * @Version: 2.0
 * @Author: Chiffa
 * @LiveStreet Version: 1.0
-* @File Name: config.php
+* @File Name: IP.entity.class.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
 */
 
-/* Настройки роутинга */
-Config::Set('router.page.feedback', 'PluginFeedback_ActionFeedback');
-Config::Set('plugin.feedback.encrypt', 'ChiffaYo');
+/**
+ * Объект сущности IP
+ *
+ */
+class PluginFeedback_ModuleFeedback_EntityIp extends EntityORM {
 
+	public function getFromLong() {
+		return int2ip($this->getFrom());
+	}
+
+	public function getToLong() {
+		return int2ip($this->getTo());
+	}
+
+}
 ?>
