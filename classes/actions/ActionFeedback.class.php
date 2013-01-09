@@ -64,6 +64,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * AJAX Обработчики
 		 */
+		$this->AddEventPreg('/^ajax$/i','/^addip$/','EventAjaxAddip');
 		$this->AddEventPreg('/^ajax$/i','/^deleteip$/','EventAjaxDeleteip');
 		$this->AddEventPreg('/^ajax$/i','/^validate$/','EventAjaxValidate');
 		$this->AddEventPreg('/^ajax$/i','/^send$/','EventAjaxSend');
@@ -74,6 +75,65 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 	 **********************************************************************************
 	 */
 
+	/**
+	 * Добавление IP
+	 *
+	 */
+	protected function EventAjaxAddip() {
+		/**
+		 * Устанавливаем формат Ajax ответа
+		 */
+		$this->Viewer_SetResponseAjax('json');
+		/**
+		 * Читаем параметры
+		 */
+		$aIPs=getRequest('filter_ip',array());
+
+		$sIP1=implode('.',$aIPs[1]);
+		if (!isset($aIPs[2])) $aIPs[2] = $aIPs[1];
+		$sIP2=implode('.',$aIPs[2]);
+		/**
+		 * Проверка на корректность
+		 */
+		if (!(ip2long($sIP1) && ip2long($sIP2))) {
+			$this->Message_AddErrorSingle($this->Lang_Get('plugin.feedback.acp_ip_add_error'),$this->Lang_Get('error'));
+			return false;
+		}
+		/**
+		 * Создаем объект
+		 */
+		$oIp=LS::Ent('PluginFeedback_Feedback_Ip');
+		$oIp->setGroup(getRequest('filter_type'));
+		$oIp->setComment(getRequest('filter_comment'));
+		$oIp->setFrom(ip2int($sIP1));
+		$oIp->setTo(ip2int($sIP2));
+		/**
+		 * Код
+		 */
+		require_once Config::Get('path.root.engine').'/lib/external/XXTEA/encrypt.php';
+		$sCode=rawurlencode(base64_encode(xxtea_encrypt($sIP1.'_'.$sIP2, Config::Get('plugin.feedback.encrypt'))));
+		$oIp->setHash($sCode);
+		/**
+		 * Сохраняем
+		 */
+		if (!$oIp->Save()) {
+			$this->Message_AddErrorSingle($this->Lang_Get('system_error'),$this->Lang_Get('error'));
+			return false;
+		}
+		/**
+		 * Рендерим шаблон
+		 */
+		$oViewer=$this->Viewer_GetLocalViewer();
+		$oViewer->Assign('oIpItem',$oIp);
+		$sTextResult=$oViewer->Fetch($this->getTemplatePathPlugin().'filter_ip_inlist.tpl');
+		/**
+		 * Передаем результат в ajax ответ
+		 */
+		$this->Viewer_AssignAjax('sType',$oIp->getGroup());
+		$this->Viewer_AssignAjax('sText',$sTextResult);
+		$this->Message_AddNoticeSingle($this->Lang_Get('plugin.feedback.acp_save_ok'));
+		return true;
+	}
 	/**
 	 * Удаление IP
 	 *
@@ -333,44 +393,13 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * Была ли отправлена форма с данными
 		 */
-		if (isPost('filter_ip_submit')) {
-			$aIPs=getRequest('filter_ip',array());
-
-			$sIP1=implode('.',$aIPs[1]);
-			if (!isset($aIPs[2])) $aIPs[2] = $aIPs[1];
-			$sIP2=implode('.',$aIPs[2]);
-
-			if (!(ip2long($sIP1) && ip2long($sIP2))) {
-				return false;
-			}
-			$oIp=LS::Ent('PluginFeedback_Feedback_Ip');
-			$oIp->setGroup(getRequest('filter_type'));
-			$oIp->setComment(getRequest('filter_comment'));
-			$oIp->setFrom(ip2int($sIP1));
-			$oIp->setTo(ip2int($sIP2));
-			/**
-			 * Код
-			 */
-			require_once Config::Get('path.root.engine').'/lib/external/XXTEA/encrypt.php';
-			$sCode=rawurlencode(base64_encode(xxtea_encrypt($sIP1.'_'.$sIP2, Config::Get('plugin.feedback.encrypt'))));
-			$oIp->setHash($sCode);
-
-			if ($oIp->Save()) {
-				$this->Message_AddNotice($this->Lang_Get('plugin.feedback.acp_save_ok'),null,1);
-				Router::Location(Router::GetPath('feedback').'admin/filter/');
-			} else {
-
-				Router::Location(Router::GetPath('feedback').'admin/filter/');
-			}
-		} else {
-			$aIpList=$this->PluginFeedback_Feedback_GetIpItemsAll();
-			$aSortList=array('white'=>array(),'black'=>array());
-			foreach ($aIpList as $oIp) {
-				$aSortList[$oIp->getGroup()][]=$oIp;
-			}
-			$this->Viewer_Assign('aWhiteList',$aSortList['white']);
-			$this->Viewer_Assign('aBlackList',$aSortList['black']);
+		$aIpList=$this->PluginFeedback_Feedback_GetIpItemsAll();
+		$aSortList=array('white'=>array(),'black'=>array());
+		foreach ($aIpList as $oIp) {
+			$aSortList[$oIp->getGroup()][]=$oIp;
 		}
+		$this->Viewer_Assign('aWhiteList',$aSortList['white']);
+		$this->Viewer_Assign('aBlackList',$aSortList['black']);
 		/**
 		 * Устанавливаем шаблон вывода
 		 */

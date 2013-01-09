@@ -72,6 +72,17 @@ ls.feedback.admin = (function ($) {
 		}
 	};
 
+	this.applyIpForm = function(form) {
+		ls.ajaxSubmit(aRouter['feedback']+'ajax/addip/', form, function(result) {
+			if (result.bStateError) {
+				ls.msg.error(null,result.sMsg);
+			} else {
+				if (result.sMsg) ls.msg.notice(null,result.sMsg);
+				$('#ip_'+result.sType+'_list').append(result.sText);
+			}
+		}.bind(this));
+		return false;
+	};
 	this.deleteIp = function(hash) {
 		if (!confirm(ls.lang.get('plugin.feedback.acp_ip_del_confirm'))) return false;
 
