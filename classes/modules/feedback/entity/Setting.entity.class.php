@@ -1,4 +1,4 @@
-<?
+<?php
 /*---------------------------------------------------------------------------
 * @Module Name: Feedback
 * @Description: Feedback for LiveStreet

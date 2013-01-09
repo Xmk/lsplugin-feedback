@@ -1,4 +1,4 @@
-<?
+<?php
 /*---------------------------------------------------------------------------
 * @Module Name: Feedback
 * @Description: Feedback for LiveStreet
@@ -73,7 +73,7 @@ return array(
 	'acp_sys_deactivate' => 'Деактивация плагина',
 	'acp_sys_deactivate_delete' => 'Удаление таблиц плагина',
 
-	'error_no_mails' => '',
+	'error_no_mails' => 'Пожалуйста, укажите в настройках модуля E-Mail, на который будут приходить письма',
 	'send_in_blacklist' => 'Ваш IP адрес находится в черном списке',
 
 	'notify_title' => 'Новый отзыв на вашем сайте',

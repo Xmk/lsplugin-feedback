@@ -1,4 +1,4 @@
-<?
+<?php
 /*---------------------------------------------------------------------------
 * @Module Name: Feedback
 * @Description: Feedback for LiveStreet
@@ -296,6 +296,8 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 						$aLangErr='plugin.feedback.send_spam_error';
 						break;
 					case PluginFeedback_ModuleFeedback::ERROR_NOT_MAILS:
+						if (LS::Adm()) $aLangErr='error_no_mails';
+						else $aLangErr='system_error';
 					default:
 						$aLangErr='system_error';
 						break;
