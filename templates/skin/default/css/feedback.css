@@ -17,10 +17,10 @@
 .iplist_actions { float: right }
 
 .feedback-form .form-item:last-child { margin-bottom: 0 }
-.feedback-form dl.form-item dd { position: relative; width: 505px }
+.feedback-form dl.form-item dd { position: relative; width: 460px }
 .feedback-form dl.form-item dd .markItUp { width: 400px }
 .feedback-form dl.form-item dd .mce-editor { height: 200px }
-.feedback-form dl.form-item dd .form-item-help { width: 100px; height: 20px; position: absolute; top: 1px; right: 0 }
+.feedback-form dl.form-item dd .form-item-help { width: 50px; height: 20px; position: absolute; top: 1px; right: 0 }
 .feedback-form dl.form-item dd .form-item-help.active { background: url(../images/dots.png) 0 12px repeat-x }
 .feedback-form dl.form-item dd .form-item-help i { background-color: #f8fbfe }
 .feedback-form dl.form-item dd .form-item-help i.icon-ok-green  { position: absolute; top: 3px; right: 0 }
@@ -28,7 +28,7 @@
 .toolbar .toolbar-feedback { position: fixed; bottom: 5px; right: 5px; z-index: 20 }
 .toolbar .toolbar-feedback i { margin-top: 2px }
 
-.modal.modal-feedback { width: 550px; margin-left: -275px; top: 50px }
+.modal.modal-feedback { width: 510px; margin-left: -245px; top: 50px }
 .modal.modal-feedback .modal-header { margin-bottom: 0 }
 .modal.modal-feedback .modal-content { padding-top: 15px }
 .modal.modal-feedback .icon-question-sign { position: relative; top: -3px }

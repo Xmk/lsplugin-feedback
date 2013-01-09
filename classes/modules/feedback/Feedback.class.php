@@ -110,7 +110,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 			if ($bInBlackList) {
 				return array('state'=>false,'code'=>self::ERROR_IN_BLACKLIST);
 			}
-			if ($this->CanWrite() && !$bInWhiteList) {
+			if (!$this->CanWrite() && !$bInWhiteList) {
 				return array('state'=>false,'code'=>self::ERROR_IN_TIMELIMIT);
 			}
 			/**
@@ -137,8 +137,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 			}
 			if (!$bInWhiteList) {
 				$iTimeLimit = (int)Config::Get('plugin.feedback.acl.limit_time');
-				//fSetCookie('feedback', md5(func_getIp()), 0, 0, 0, $iTimeLimit);
-				setcookie(md5(func_getIp()), '', time()+$iTimeLimit, Config::Get('sys.cookie.path'), Config::Get('sys.cookie.host'));
+				fSetCookie('CfFB', md5(func_getIp()), 0, 0, 0, $iTimeLimit);
 			}
 			$aRes['state'] = true;
 		} else {
@@ -153,8 +152,8 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 	 *
 	 */
 	public function CanWrite() {
-		//return !fGetCookie(md5(func_getIp()));
-		return !isset($_COOKIE[md5(func_getIp())]);
+		$sCookieIp=fGetCookie('CfFB');
+		return (bool)($sCookieIp != md5(func_getIp()));
 	}
 }
 ?>

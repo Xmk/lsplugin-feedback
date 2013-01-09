@@ -100,7 +100,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * Получаем объект IP
 		 */
-		if (!($oIp=$this->PluginFeedback_Feedback_GetIpByFromAndTo($sIpFrom,$sIpTo))) {
+		if (!($oIp=$this->PluginFeedback_Feedback_GetIpByFromAndTo(ip2int($sIpFrom),ip2int($sIpTo)))) {
 			$this->Message_AddErrorSingle($this->Lang_Get('system_error'),$this->Lang_Get('error'));
 			return false;
 		}
@@ -352,8 +352,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			 * Код
 			 */
 			require_once Config::Get('path.root.engine').'/lib/external/XXTEA/encrypt.php';
-			$sCode=$oIp->getFrom().'_'.$oIp->getTo();
-			$sCode=rawurlencode(base64_encode(xxtea_encrypt($sCode,Config::Get('plugin.feedback.encrypt'))));
+			$sCode=rawurlencode(base64_encode(xxtea_encrypt($sIP1.'_'.$sIP2, Config::Get('plugin.feedback.encrypt'))));
 			$oIp->setHash($sCode);
 
 			if ($oIp->Save()) {
