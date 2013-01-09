@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.0
+* @LiveStreet Version: 1.X
 * @File Name: ukrainian.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -32,8 +32,9 @@ return array(
 	'send_ok' => 'Вітаємо! Ваш лист успішно відправлений',
 
 	'acp' => 'Налаштування модуля',
-	'acp_main' => 'Налаштування',
-	'acp_filter' => 'Фильтры',
+	'acp_menu_main' => 'Налаштування',
+	'acp_menu_filter' => 'Фильтры',
+	'acp_filter' => 'Налаштування фільтрів',
 	'acp_mails' => 'Список E-Mail',
 	'acp_mails_note' => 'Список адрес, на які будуть приходити листи',
 	'acp_mail_add' => 'Додати адресу',
@@ -55,8 +56,25 @@ return array(
 	'acp_title_delete' => 'Видалити тему',
 	'acp_save' => 'Зберегти налаштування',
 	'acp_save_ok' => 'Налаштування збережені',
+	'acp_black_list' => 'Чорний список',
+	'acp_black_list_comment' => 'Причина',
+	'acp_white_list' => 'Білий список',
+	'acp_ip_add' => 'Додати IP в',
+	'acp_ip_add_from' => 'IP From',
+	'acp_ip_add_to' => 'IP To',
+	'acp_ip_add_submit' => 'Додати',
+	'acp_ip_add_error' => 'Некоректний IP адресу',
+	'acp_ip_del' => 'Видалити IP зі списку',
+	'acp_ip_del_confirm' => 'Видалити?',
+	'acp_ip_del_error' => 'Помилка безпеки',
+	'acp_ip_del_ok' => 'Успіх',
+	'acp_sys' => 'Системна конфігурація',
+	'acp_sys_note' => '',
+	'acp_sys_deactivate' => 'Деактивація',
+	'acp_sys_deactivate_delete' => 'Видалення таблиць плагіна',
 
 	'error_no_mails' => '',
+	'send_in_blacklist' => 'Ваш IP адреса знаходиться в чорному списку',
 
 	'notify_title' => 'Новий відгук на вашому сайті',
 

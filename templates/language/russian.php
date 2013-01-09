@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.0
+* @LiveStreet Version: 1.X
 * @File Name: russian.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return array(
 	'acp_ip_add_from' => 'IP From',
 	'acp_ip_add_to' => 'IP To',
 	'acp_ip_add_submit' => 'Добавить',
-	'acp_ip_add_error' => 'Некорректный IP адресс',
+	'acp_ip_add_error' => 'Некорректный IP адрес',
 	'acp_ip_del' => 'Удалить IP из списка',
 	'acp_ip_del_confirm' => 'Удалить?',
 	'acp_ip_del_error' => 'Ошибка безопасности',
@@ -74,7 +74,7 @@ return array(
 	'acp_sys_deactivate_delete' => 'Удаление таблиц плагина',
 
 	'error_no_mails' => '',
-	'send_in_blacklist' => 'Ваш IP адресс находится в черном списке',
+	'send_in_blacklist' => 'Ваш IP адрес находится в черном списке',
 
 	'notify_title' => 'Новый отзыв на вашем сайте',
 

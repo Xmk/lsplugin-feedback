@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.0
+* @LiveStreet Version: 1.X
 * @File Name: HookFeedback.class.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -38,6 +38,9 @@ class PluginFeedback_HookFeedback extends Hook {
 	}
 
 	public function FeedbackCopyright() {
+		if (Config::Get('plugin.feedback.donator')) {
+			return;
+		}
 		$aPlugins=$this->Plugin_GetList();
 		if (!(isset($aPlugins['feedback']))) {
 			return;

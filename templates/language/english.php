@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.0
+* @LiveStreet Version: 1.X
 * @File Name: english.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -32,8 +32,9 @@ return array(
 	'send_ok' => 'Congratulations! Your message has been sent.',
 
 	'acp' => 'Module configuration',
-	'acp_main' => 'Settings',
-	'acp_filter' => 'Filters',
+	'acp_menu_main' => 'Settings',
+	'acp_menu_filter' => 'Filters',
+	'acp_filter' => 'Set filters',
 	'acp_mails' => 'EMail list',
 	'acp_mails_note' => 'Email list addresses that will receive the message',
 	'acp_mail_add' => 'Add the address',
@@ -55,8 +56,25 @@ return array(
 	'acp_title_delete' => 'Delete theme',
 	'acp_save' => 'Save settings',
 	'acp_save_ok' => 'The settings are saved',
+	'acp_black_list' => 'Blacklist',
+	'acp_black_list_comment' => 'Cause',
+	'acp_white_list' => 'White list',
+	'acp_ip_add' => 'Add IP to',
+	'acp_ip_add_from' => 'IP From',
+	'acp_ip_add_to' => 'IP To',
+	'acp_ip_add_submit' => 'Add',
+	'acp_ip_add_error' => 'Incorrect IP address',
+	'acp_ip_del' => 'Remove IP from the list of',
+	'acp_ip_del_confirm' => 'Delete?',
+	'acp_ip_del_error' => 'Security error',
+	'acp_ip_del_ok' => 'Success',
+	'acp_sys' => 'System configuration',
+	'acp_sys_note' => '',
+	'acp_sys_deactivate' => 'Deactivation',
+	'acp_sys_deactivate_delete' => 'Removing DB module',
 
 	'error_no_mails' => '',
+	'send_in_blacklist' => 'Your IP address is blacklisted',
 
 	'notify_title' => 'Feedback on your site',
 
