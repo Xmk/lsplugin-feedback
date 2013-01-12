@@ -102,6 +102,12 @@
 					{$aLang.plugin.feedback.acp_sys_popup}
 				</label>
 			</p>
+			<p>
+				<label>
+					{$aLang.plugin.feedback.acp_sys_button_name}<br/>
+					<input type="text" name="settings[system][button_name]" value="{$aSystem.button_name}" class="input-text input-width-200">
+				</label>
+			</p>
 		</div>
 		<div id="setting-sys-container">
 			{assign var="aDeactivate" value=$_aSettings.deactivate}

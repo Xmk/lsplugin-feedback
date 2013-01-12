@@ -71,6 +71,7 @@ return array(
 	'acp_sys' => 'Системна конфігурація',
 	'acp_sys_note' => '',
 	'acp_sys_popup' => 'Модальне вікно',
+	'acp_sys_button_name' => 'Назва кнопки',
 	'acp_sys_deactivate' => 'Деактивація',
 	'acp_sys_deactivate_delete' => 'Видалення таблиць плагіна',
 
