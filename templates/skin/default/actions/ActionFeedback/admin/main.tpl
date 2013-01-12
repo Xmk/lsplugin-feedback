@@ -95,6 +95,15 @@
 		<span class="note">{$aLang.plugin.feedback.acp_sys_note}</span>
 
 		<div id="setting-sys-container">
+			{assign var="aSystem" value=$_aSettings.system}
+			<p>
+				<label>
+					<input type="checkbox" class="input-checkbox" name="settings[system][popup]" id="popup_wnd" value="1"{if $aSystem.popup} checked{/if}>
+					{$aLang.plugin.feedback.acp_sys_popup}
+				</label>
+			</p>
+		</div>
+		<div id="setting-sys-container">
 			{assign var="aDeactivate" value=$_aSettings.deactivate}
 			<h3>{$aLang.plugin.feedback.acp_sys_deactivate}</h3>
 			<p>

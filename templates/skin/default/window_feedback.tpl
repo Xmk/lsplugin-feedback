@@ -51,7 +51,7 @@
 
 			<p>
 			<label for="text">{$aLang.plugin.feedback.send_text}:</label>
-			<textarea name="text" id="popup-feedback-text" class="mce-editor markitup-editor input-width-400 js-ajax-validate" rows="10">{$_aRequest.text}</textarea>
+			<textarea name="text" id="popup-feedback-text" class="input-text input-width-400 js-ajax-validate" rows="10">{$_aRequest.text}</textarea>
 			<i class="icon-question-sign js-tip-help" title="{$aLang.plugin.feedback.send_text_notice}"></i>
 			<i class="icon-ok-green validate-ok-field-text" style="display: none"></i>
 			<small class="validate-error-hide validate-error-field-text"></small></p>
