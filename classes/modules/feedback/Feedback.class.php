@@ -68,8 +68,6 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 			foreach ($aSettings[$sGroup] as $oSet) {
 				$oSet->Delete();
 			}
-			//unique
-			$aItems = array_unique($aItems);
 			//save new sets
 			foreach ($aItems as $sKey=>$sValue) {
 				$oSet=LS::Ent('PluginFeedback_Feedback_Setting');
