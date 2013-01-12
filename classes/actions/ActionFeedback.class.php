@@ -361,26 +361,32 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		 */
 		if (isPost('submit_feedback_settings')) {
 			$aData=array();
-			foreach (array('mail','acl','field','title','deactivate') as $sGroup) {
+			foreach (getRequest('settings',array(),'post') as $sGroup=>$aSets) {
 				$aData[$sGroup]=array();
-				foreach (getRequest($sGroup,array(),'post') as $sKey=>$sItem) {
+				foreach ($aSets as $sKey=>$sItem) {
 					$sItem=trim((string)$sItem);
 					if ($sItem) {
 						$aData[$sGroup][(string)$sKey]=$sItem;
 					}
 				}
 			}
+			/**
+			 * Сохраняем
+			 */
 			if ($this->PluginFeedback_Feedback_SetSettings($aData)) {
 				$this->Message_AddNotice($this->Lang_Get('plugin.feedback.acp_save_ok'),null,1);
 				Router::Location(Router::GetPath('feedback').'admin/');
 			} else {
-
+				$this->Message_AddErrorSingle($this->Lang_Get('system_error'),$this->Lang_Get('error'));
+				return false;
 			}
 		} else {
+			$_aSettings=array();
 			$aSettings=$this->PluginFeedback_Feedback_GetSettings();
 			foreach ($aSettings as $sKey=>$sValue) {
-				$_REQUEST[$sKey]=$sValue;
+				$_aSettings[$sKey]=$sValue;
 			}
+			$_REQUEST['settings']=$_aSettings;
 		}
 		/**
 		 * Устанавливаем шаблон вывода
