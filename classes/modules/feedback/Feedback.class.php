@@ -110,7 +110,6 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 				$iFromIp = $oIp->getIpFrom();
 				$iToIp = $oIp->getIpTo();
 				if ($iChekIp >= $iFromIp && $iChekIp <= $iToIp) {
-				//if (bound($iChekIp, $iFromIp, $iToIp)) {
 					$bInBlackList = (bool)($oIp->getGroup() == 'black');
 					$bInWhiteList = (bool)($oIp->getGroup() == 'white');
 				}

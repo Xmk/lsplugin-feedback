@@ -17,7 +17,7 @@ if (!function_exists('fSetCookie')) {
 		$iExpires = time() + (60*60*24*365);
 		if (!$bSticky) {
 			$iExpires = time() + ($iExpiresDays * 86400) + ($iExpiresMinutes * 60) + $iExpiresSeconds;
-		//	if ($iExpires <= time()) $iExpires = false;
+			if ($iExpires <= time()) $iExpires = false;
 		}
 		@setcookie($sName,$sValue,$iExpires,Config::Get('sys.cookie.path'),Config::Get('sys.cookie.host'));
 	}
@@ -30,20 +30,18 @@ if (!function_exists('fGetCookie')) {
 		return false;
 	}
 }
-function bound($x, $min, $max) {
-	return min(max($x, $min), $max);
-}
+
 function int2ip($i) {
 	$d=array();
 	$d[0]=(int)($i/256/256/256);
 	$d[1]=(int)(($i-$d[0]*256*256*256)/256/256);
 	$d[2]=(int)(($i-$d[0]*256*256*256-$d[1]*256*256)/256);
 	$d[3]=$i-$d[0]*256*256*256-$d[1]*256*256-$d[2]*256;
-	return join($d,'.');
+	return implode('.', $d);
 }
 function ip2int($ip) {
-   $a=explode('.',$ip);
-   return $a[0]*256*256*256+$a[1]*256*256+$a[2]*256+$a[3];
+	$a=explode('.', $ip);
+	return $a[0]*256*256*256+$a[1]*256*256+$a[2]*256+$a[3];
 }
 
 ?>

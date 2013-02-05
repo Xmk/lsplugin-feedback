@@ -360,6 +360,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		 * Была ли отправлена форма с данными
 		 */
 		if (isPost('submit_feedback_settings')) {
+			$this->Security_ValidateSendForm();
 			$aData=array();
 			foreach (getRequest('settings',array(),'post') as $sGroup=>$aSets) {
 				$aData[$sGroup]=array();

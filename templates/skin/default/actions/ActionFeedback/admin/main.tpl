@@ -6,6 +6,8 @@
 {assign var="_aSettings" value=$_aRequest.settings}
 
 <form action="{router page='feedback'}admin/" method="post">
+	<input type="hidden" name="security_ls_key" value="{$LIVESTREET_SECURITY_KEY}" />
+
 	<div class="wrapper-content">
 		<p id="setting_mail_template" style="display:none" class="js-setting-mail-item">
 			<input type="text" name="settings[mail][]" value="" class="input-text input-width-200">
