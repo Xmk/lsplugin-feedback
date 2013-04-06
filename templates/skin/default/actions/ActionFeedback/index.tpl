@@ -8,7 +8,7 @@
 		});
 	</script>
 {else}
-	{include file='window_load_img.tpl' sToLoad='feedback-text'}
+	{include file='modals/modal_load_img.tpl' sToLoad='feedback-text'}
 	<script>
 		jQuery(function($){
 			ls.lang.load({lang_load name="panel_b,panel_i,panel_u,panel_url,panel_url_promt,panel_image,panel_quote,panel_list,panel_list_ul,panel_list_ol,panel_clear_tags,panel_list_li,panel_image_promt"});

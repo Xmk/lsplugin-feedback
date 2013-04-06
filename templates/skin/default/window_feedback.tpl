@@ -1,4 +1,4 @@
-<div class="modal modal-feedback" id="modal_feedback">
+<div class="modal modal-feedback" id="modal_feedback" data-type="modal">
 	<header class="modal-header">
 		<h3>{$aLang.plugin.feedback.feedback}</h3>
 		<a href="#" class="close jqmClose"></a>
