@@ -70,6 +70,8 @@ return array(
 	'acp_ip_del_ok' => 'Удачно',
 	'acp_sys' => 'Системная конфигурация',
 	'acp_sys_note' => '',
+	'acp_sys_popup' => 'Модальное окно',
+	'acp_sys_button_name' => 'Название кнопки',
 	'acp_sys_deactivate' => 'Деактивация плагина',
 	'acp_sys_deactivate_delete' => 'Удаление таблиц плагина',
 

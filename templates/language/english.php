@@ -70,6 +70,8 @@ return array(
 	'acp_ip_del_ok' => 'Success',
 	'acp_sys' => 'System configuration',
 	'acp_sys_note' => '',
+	'acp_sys_popup' => 'Modal window',
+	'acp_sys_button_name' => 'Button title',
 	'acp_sys_deactivate' => 'Deactivation',
 	'acp_sys_deactivate_delete' => 'Removing DB module',
 

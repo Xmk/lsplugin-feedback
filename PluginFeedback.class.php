@@ -23,6 +23,12 @@ class PluginFeedback extends Plugin {
 		if (!$this->isTableExists('prefix_feedback_setting')) {
 			$this->ExportSQL(dirname(__FILE__).'/sql/install.sql');
 		}
+		/**
+		 * Устанавливаем по умолчанию мыло админа из конфига
+		 */
+		$aSet = array();
+		$aSet['mail'][] = Config::Get('sys.mail.from_email');
+		$this->PluginFeedback_Feedback_SetSettings($aSet);
 		return true;
 	}
 

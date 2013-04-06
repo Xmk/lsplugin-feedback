@@ -19,6 +19,9 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 	const ERROR_IN_BLACKLIST	= 201;
 	const ERROR_IN_TIMELIMIT	= 202;
 
+	const SORT_BY_GROUP			= 1;
+	const SORT_BY_KEY			= 2;
+
 	/**
 	 * Объект текущего пользователя
 	 *
@@ -38,12 +41,14 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 		$this->oUserCurrent=$this->User_GetUserCurrent();
 	}
 
-	public function GetSettings($bGroup=0) {
+	public function GetSettings($bSort=0) {
 		$aRes = array();
 		$aSets = $this->GetSettingItemsAll();
 		foreach ($aSets as $oSet) {
-			if ($bGroup) {
+			if ($bSort == self::SORT_BY_GROUP) {
 				$aRes[$oSet->getGroup()][]=$oSet;
+			} elseif ($bSort == self::SORT_BY_KEY) {
+				$aRes[$oSet->getKey()]=$oSet;
 			} else {
 				$aKeys=explode('.',$oSet->getKey());
 				$sEval='$aRes';
@@ -61,23 +66,26 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 		if (!is_array($aSets)) {
 			return false;
 		}
-		$aSettings = $this->GetSettings(1);
-
+		$aSettings = $this->GetSettings(self::SORT_BY_KEY);
+		//save new sets
 		foreach ($aSets as $sGroup=>$aItems) {
-			//delete all old sets on this group
-			foreach ($aSettings[$sGroup] as $oSet) {
-				$oSet->Delete();
-			}
-			//unique
-			$aItems = array_unique($aItems);
-			//save new sets
 			foreach ($aItems as $sKey=>$sValue) {
-				$oSet=LS::Ent('PluginFeedback_Feedback_Setting');
-				$oSet->setGroup($sGroup);
-				$oSet->setKey((string)$sGroup.'.'.$sKey);
+				$sNewKey = (string)$sGroup.'.'.$sKey;
+				if (isset($aSettings[$sNewKey])) {
+					$oSet = $aSettings[$sNewKey];
+					unset($aSettings[$sNewKey]);
+				} else {
+					$oSet = LS::Ent('PluginFeedback_Feedback_Setting');
+					$oSet->setGroup($sGroup);
+					$oSet->setKey($sNewKey);
+				}
 				$oSet->setValue($sValue);
 				$oSet->Save();
 			}
+		}
+		//delete old sets
+		foreach ($aSettings as $oSet) {
+			$oSet->Delete();
 		}
 		return true;
 	}
@@ -102,7 +110,6 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 				$iFromIp = $oIp->getIpFrom();
 				$iToIp = $oIp->getIpTo();
 				if ($iChekIp >= $iFromIp && $iChekIp <= $iToIp) {
-				//if (bound($iChekIp, $iFromIp, $iToIp)) {
 					$bInBlackList = (bool)($oIp->getGroup() == 'black');
 					$bInWhiteList = (bool)($oIp->getGroup() == 'white');
 				}

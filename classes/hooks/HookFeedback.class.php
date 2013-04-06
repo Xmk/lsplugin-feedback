@@ -13,7 +13,7 @@
 class PluginFeedback_HookFeedback extends Hook {
 
 	/**
-	 * Ðåãèñòðàöèÿ õóêîâ
+	 * Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ Ñ…ÑƒÐºÐ¾Ð²
 	 */
 	public function RegisterHook() {
 		$this->AddHook('init_action', 'InitAction', __CLASS__);
@@ -25,7 +25,7 @@ class PluginFeedback_HookFeedback extends Hook {
 	public function InitAction($aVars) {
 		if (!$this->User_GetUserCurrent()) {
 			/**
-			 * Ðàçðåøàåì ãîñòÿì þçàòü îáðàòíóþ ñâÿçü äàæå ïðè çàêðûòîì ðåæèìå ñàéòà
+			 * Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÐ¼ Ð³Ð¾ÑÑ‚ÑÐ¼ ÑŽÐ·Ð°Ñ‚ÑŒ Ð¾Ð±Ñ€Ð°Ñ‚Ð½ÑƒÑŽ ÑÐ²ÑÐ·ÑŒ Ð´Ð°Ð¶Ðµ Ð¿Ñ€Ð¸ Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ð¼ Ñ€ÐµÐ¶Ð¸Ð¼Ðµ ÑÐ°Ð¹Ñ‚Ð°
 			 */
 			$oSet = $this->PluginFeedback_Feedback_GetSettingByKey('acl.close_enable');
 			if ($oSet && $oSet->getValue()) {
@@ -51,7 +51,7 @@ class PluginFeedback_HookFeedback extends Hook {
 	}
 
 	/**
-	 * Âñòàâëÿåì ññûëêó íà Îáðàòíóþ ñâÿçü â ôóòåð
+	 * Ð’ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ ÑÑÑ‹Ð»ÐºÑƒ Ð½Ð° ÐžÐ±Ñ€Ð°Ñ‚Ð½ÑƒÑŽ ÑÐ²ÑÐ·ÑŒ Ð² Ñ„ÑƒÑ‚ÐµÑ€
 	 */
 	public function InjectFooter($aVars) {
 		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'window_feedback.tpl');
