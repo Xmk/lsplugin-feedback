@@ -15,7 +15,12 @@ if (!class_exists('Plugin')) {
 }
 
 class PluginFeedback extends Plugin {
-
+    // Объявление переопределений (модули, мапперы и сущности)
+    protected $aInherits = array(
+        'module' => array(
+            'ModuleMail',
+        ),
+    );
 	/**
 	 * Активация плагина
 	 */

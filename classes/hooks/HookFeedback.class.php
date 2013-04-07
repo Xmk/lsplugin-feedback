@@ -19,6 +19,7 @@ class PluginFeedback_HookFeedback extends Hook {
 		$this->AddHook('init_action', 'InitAction', __CLASS__);
 		$this->AddHook('template_feedback_copyright','FeedbackCopyright');
 		$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
+        $this->AddHook('template_admin_action_item', 'addMenuAdmin',  __CLASS__, -15);
 	}
 
 
@@ -31,7 +32,7 @@ class PluginFeedback_HookFeedback extends Hook {
 			if ($oSet && $oSet->getValue()) {
 				if (Config::Get('general.close') && stripos($_SERVER['REQUEST_URI'], 'feedback') && Router::GetAction()!='feedback') {
 					Router::Action('feedback');
-					return ;
+					return;
 				}
 			}
 		}
@@ -56,6 +57,15 @@ class PluginFeedback_HookFeedback extends Hook {
 	public function InjectFooter($aVars) {
 		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'window_feedback.tpl');
 	}
+
+    /**
+     * Добавляет пункт в меню админки
+     * @return mixed
+     */
+    public function addMenuAdmin() {
+        $this->Viewer_Assign('sSettingsPage', Router::GetPath('admin').'tagextender');
+        return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__) . 'menu.admin.tpl');
+    }
 
 }
 ?>

@@ -13,7 +13,7 @@ var ls=ls || {}
 
 ls.feedback = (function ($) {
 	/**
-	 * Инициализация формы обратной связи
+	 * РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С„РѕСЂРјС‹ РѕР±СЂР°С‚РЅРѕР№ СЃРІСЏР·Рё
 	 * @param	isPopup
 	 */
 	this.initForm = function(isPopup) {
@@ -37,7 +37,7 @@ ls.feedback = (function ($) {
 	};
 
 	/**
-	 * Настройки для редактора
+	 * РќР°СЃС‚СЂРѕР№РєРё РґР»СЏ СЂРµРґР°РєС‚РѕСЂР°
 	 * @return	hash
 	 */
 	this.getMarkitup = function() {
@@ -64,7 +64,7 @@ ls.feedback = (function ($) {
 	};
 
 	/**
-	 * Очиска полей формы обратной связи
+	 * РћС‡РёСЃРєР° РїРѕР»РµР№ С„РѕСЂРјС‹ РѕР±СЂР°С‚РЅРѕР№ СЃРІСЏР·Рё
 	 * @param	form
 	 */
 	this.clearFields = function(form) {
@@ -80,7 +80,7 @@ ls.feedback = (function ($) {
 	};
 
 	/**
-	 * Валидация полей формы обратной связи
+	 * Р’Р°Р»РёРґР°С†РёСЏ РїРѕР»РµР№ С„РѕСЂРјС‹ РѕР±СЂР°С‚РЅРѕР№ СЃРІСЏР·Рё
 	 * @param aFields
 	 * @param sForm
 	 */
@@ -110,7 +110,7 @@ ls.feedback = (function ($) {
 	};
 
 	/**
-	 * Валидация конкретного поля формы
+	 * Р’Р°Р»РёРґР°С†РёСЏ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ РїРѕР»СЏ С„РѕСЂРјС‹
 	 * @param	sField
 	 * @param	sValue
 	 * @param	sForm
@@ -123,7 +123,7 @@ ls.feedback = (function ($) {
 	};
 
 	/**
-	 * Ajax отправка письма с проверкой полей формы
+	 * Ajax РѕС‚РїСЂР°РІРєР° РїРёСЃСЊРјР° СЃ РїСЂРѕРІРµСЂРєРѕР№ РїРѕР»РµР№ С„РѕСЂРјС‹
 	 * @param	form
 	 * @param	isPopup
 	 */
@@ -169,11 +169,14 @@ ls.feedback = (function ($) {
 jQuery(document).ready(function($){
 	ls.hook.run('feedback_template_init_start',[],window);
 
-	// Инициализация формы
+	// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С„РѕСЂРјС‹
 	ls.feedback.initForm();
 
-	// Модальное окно
-	$('#modal_feedback').jqm({trigger: '.js-feedback-window-show'});
+	// РњРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ
+	$('.js-feedback-window-show').click(function(){
+        $('#modal_feedback').jqmShow();
+        return false;
+    });
 
 	ls.hook.run('feedback_template_init_end',[],window);
 });
