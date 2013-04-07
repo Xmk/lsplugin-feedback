@@ -53,6 +53,25 @@
 				<label><input type="radio" class="radio" name="settings[acl][close_enable]" id="acl_close_enable_no" value="0"{if !$aAcl.limit_time} checked{/if}> No</label>
 			</p>
 		</div>
+        <div id="setting-acl-container">
+			<p>
+				<label for="acl_check_exist">{$aLang.plugin.feedback.acp_acl_check_exists}</label>
+				<label><input type="radio" class="radio" name="settings[acl][check_exists]" id="acl_check_exists" value="1"{if $aAcl.check_exists} checked{/if}> Yes</label>
+				<label><input type="radio" class="radio" name="settings[acl][check_exists]" id="acl_check_exists" value="0"{if !$aAcl.check_exists} checked{/if}> No</label>
+			</p>
+		</div>
+        <div id="setting-acl-container">
+			<p>
+				<label for="acl_msg_text_min">
+				<input type="text" class="input-text input-width-100" name="settings[acl][msg_text_min]" id="acl_msg_text_min" value="{$aAcl.msg_text_min}"> &ndash;
+                {$aLang.plugin.feedback.acp_acl_text_min}
+                </label>
+			    <label for="acl_msg_text_max">
+				<input type="text" class="input-text input-width-100" name="settings[acl][msg_text_max]" id="acl_msg_text_max" value="{$aAcl.msg_text_max}"> &ndash;
+                {$aLang.plugin.feedback.acp_acl_text_max}
+                </label>
+			</p>
+		</div>
 	</div>
 
 	<div class="wrapper-content wrapper-content-dark">

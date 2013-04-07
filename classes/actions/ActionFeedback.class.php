@@ -364,11 +364,15 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			$aData=array();
 			foreach (getRequest('settings',array(),'post') as $sGroup=>$aSets) {
 				$aData[$sGroup]=array();
-				foreach ($aSets as $sKey=>$sItem) {
-					$sItem=trim((string)$sItem);
-					if ($sItem) {
-						$aData[$sGroup][(string)$sKey]=$sItem;
-					}
+				foreach ($aSets as $sKey=>$mItem) {
+                    if (is_numeric($mItem)) {}
+                    elseif (is_string($mItem)) {
+                        $mItem = trim($mItem);
+                        if (empty($mItem)) continue;
+                    }
+                    else continue;
+
+                    $aData[$sGroup][(string)$sKey]=$mItem;
 				}
 			}
 			/**

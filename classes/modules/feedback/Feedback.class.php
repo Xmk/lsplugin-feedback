@@ -133,17 +133,19 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 			/**
 			 * Отправляем письмо
 			 */
+            $this->Mail_SetReplyTo($oMsg->getMail(), $oMsg->getName());
 			foreach ($aMails as $sMail) {
 				$this->Notify_Send(
 					$sMail,
 					'notify.feedback.tpl',
 					$sSendTitle,
 					$aSendContent,
-					__CLASS__
+					__CLASS__,
+                    true
 				);
 			}
-			if (!$bInWhiteList) {
-				$iTimeLimit = (int)Config::Get('plugin.feedback.acl.limit_time');
+            $iTimeLimit = (int)Config::Get('plugin.feedback.acl.limit_time');
+			if (!$bInWhiteList && $iTimeLimit) {
 				fSetCookie('CfFB', md5(func_getIp()), 0, 0, 0, $iTimeLimit);
 			}
 			$aRes['state'] = true;
