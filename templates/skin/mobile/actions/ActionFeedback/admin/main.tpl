@@ -8,19 +8,20 @@
 <form action="{router page='feedback'}admin/" method="post">
 	<input type="hidden" name="security_ls_key" value="{$LIVESTREET_SECURITY_KEY}" />
 
-	<div class="wrapper-content">
+	<div style="display:none">
 		<p id="setting_mail_template" style="display:none" class="js-setting-mail-item">
 			<input type="text" name="settings[mail][]" value="" class="input-text input-width-200">
-			<a class="icon-remove" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)"></a>
+			<a class="link-dotted" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)">{$aLang.plugin.feedback.acp_mail_delete}</a>
 		</p>
 		<p id="setting_title_template" style="display:none" class="js-setting-title-item">
 			<input type="text" name="settings[title][]" value="" class="input-text input-width-200">
-			<a class="icon-remove" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)"></a>
+			<a class="link-dotted" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)">{$aLang.plugin.feedback.acp_title_delete}</a>
 		</p>
 	</div>
 
-	<div class="wrapper-content wrapper-content-dark">
-		<h3>{$aLang.plugin.feedback.acp_mails}</h3>
+	<fieldset>
+		<legend>{$aLang.plugin.feedback.acp_mails}</legend>
+
 		<span class="note">{$aLang.plugin.feedback.acp_mails_note}</span>
 		{assign var="aMails" value=$_aSettings.mail}
 
@@ -28,15 +29,16 @@
 		{foreach from=$aMails item=sMail}
 			<p class="js-setting-mail-item">
 				<input type="text" name="settings[mail][]" value="{$sMail|escape:'html'}" class="input-text input-width-200">
-				<a class="icon-remove" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)"></a>
+				<a class="link-dotted" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)">{$aLang.plugin.feedback.acp_mail_delete}</a>
 			</p>
 		{/foreach}
 		</div>
 		<a href="#" onclick="return ls.feedback.admin.addFormMail()" class="link-dotted">{$aLang.plugin.feedback.acp_mail_add}</a>
-	</div>
+	</fieldset>
 
-	<div class="wrapper-content">
-		<h3>{$aLang.plugin.feedback.acp_acl}</h3>
+	<fieldset>
+		<legend>{$aLang.plugin.feedback.acp_acl}</legend>
+
 		{assign var="aAcl" value=$_aSettings.acl}
 
 		<div id="setting-acl-container">
@@ -53,10 +55,11 @@
 				<label><input type="radio" class="radio" name="settings[acl][close_enable]" id="acl_close_enable_no" value="0"{if !$aAcl.limit_time} checked{/if}> No</label>
 			</p>
 		</div>
-	</div>
+	</fieldset>
 
-	<div class="wrapper-content wrapper-content-dark">
-		<h3>{$aLang.plugin.feedback.acp_fields}</h3>
+	<fieldset>
+		<legend>{$aLang.plugin.feedback.acp_fields}</legend>
+
 		<span class="note">{$aLang.plugin.feedback.acp_fields_note}</span>
 		{assign var="aFields" value=$_aSettings.field}
 
@@ -75,25 +78,27 @@
 				<label><input type="radio" class="radio" name="settings[field][title]" id="field_title_list" value="2"{if $aFields.title == 2} checked{/if}> {$aLang.plugin.feedback.acp_field_show} {$aLang.plugin.feedback.acp_field_list|lower}</label>
 			</p>
 		</div>
-	</div>
+	</fieldset>
 
-	<div class="wrapper-content"{if !$aFields.title || $aFields.title != 2} style="display:none"{/if}>
-		<h3>{$aLang.plugin.feedback.acp_titles}</h3>
+	<fieldset {if !$aFields.title || $aFields.title != 2}style="display:none"{/if}>
+		<legend>{$aLang.plugin.feedback.acp_titles}</legend>
+
 		{assign var="aTitles" value=$_aSettings.title}
 
 		<div id="setting-title-container">
 		{foreach from=$aTitles item=sTitle}
 			<p class="js-setting-title-item">
 				<input type="text" name="settings[title][]" value="{$sTitle|escape:'html'}" class="input-text input-width-200">
-				<a class="icon-remove" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)"></a>
+				<a class="link-dotted" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)">{$aLang.plugin.feedback.acp_title_delete}</a>
 			</p>
 		{/foreach}
 		</div>
 		<a href="#" onclick="return ls.feedback.admin.addFormTitle()" class="link-dotted">{$aLang.plugin.feedback.acp_title_add}</a>
-	</div>
+	</fieldset>
 
-	<div class="wrapper-content wrapper-content-dark">
-		<h3>{$aLang.plugin.feedback.acp_sys}</h3>
+	<fieldset>
+		<legend>{$aLang.plugin.feedback.acp_sys}</legend>
+
 		<span class="note">{$aLang.plugin.feedback.acp_sys_note}</span>
 
 		<div id="setting-sys-container">
@@ -121,11 +126,9 @@
 				</label>
 			</p>
 		</div>
-	</div>
+	</fieldset>
 
-	<div class="wrapper-content">
-		<button type="submit" name="submit_feedback_settings" class="button button-primary">{$aLang.plugin.feedback.acp_save}</button>
-	</div>
+	<button type="submit" name="submit_feedback_settings" class="button button-primary">{$aLang.plugin.feedback.acp_save}</button>
 </form>
 
 {include file='footer.tpl'}

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <plugin>
 	<name>
 		<lang name="default">Feedback</lang>
@@ -9,12 +10,11 @@
 		<lang name="russian">Чиффа</lang>
 	</author>
 	<homepage>http://xmk.ars-team.ru</homepage>
-	<version>2.0</version>
+	<version>2.0.2</version>
 	<settings>{feedback}admin/</settings>
 	<requires>
 		<livestreet>1.0</livestreet>
-		<plugins>
-		</plugins>
+		<plugins></plugins>
 	</requires>
 	<description>
 		<lang name="default">Feedback form for Livestreet CMS</lang>

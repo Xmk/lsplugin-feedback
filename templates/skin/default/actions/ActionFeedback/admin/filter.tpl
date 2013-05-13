@@ -30,31 +30,41 @@
 			</div>
 		</div>
 		<p>
-			<label for="filter_comment">{$aLang.plugin.feedback.acp_black_list_comment}</label>
+			<label for="filter_comment">{$aLang.plugin.feedback.acp_ip_add_comment}</label>
 			<input type="text" id="filter_comment" name="filter_comment" value="" class="input-text">
 		</p>
 		<button type="button" onclick="return ls.feedback.admin.applyIpForm('ip-form')" class="button button-primary">{$aLang.plugin.feedback.acp_ip_add_submit}</button>
 	</form>
 </div>
 
-<div class="wrapper-content fl-l" style="width:45%">
-	<h3>{$aLang.plugin.feedback.acp_black_list}</h3>
+<div class="clearfix">
+	<div class="wrapper-content fl-l" style="width:45%">
+		<h3>{$aLang.plugin.feedback.acp_black_list}</h3>
 
-	<ul class="iplist" id="ip_black_list">
-		{foreach from=$aBlackList item=oBlack}
-			{include file="$sTemplatePathPlugin/filter_ip_inlist.tpl" oIpItem=$oBlack}
-		{/foreach}
-	</ul>
-</div>
+		<ul class="iplist" id="ip_black_list">
+			{if $aBlackList}
+				{foreach from=$aBlackList item=oBlack}
+					{include file="$sTemplatePathPlugin/filter_ip_inlist.tpl" oIpItem=$oBlack}
+				{/foreach}
+			{else}
+				<li>{$aLang.plugin.feedback.acp_black_list_empty}</li>
+			{/if}
+		</ul>
+	</div>
 
-<div class="wrapper-content fl-l" style="width:45%">
-	<h3>{$aLang.plugin.feedback.acp_white_list}</h3>
+	<div class="wrapper-content fl-l" style="width:45%">
+		<h3>{$aLang.plugin.feedback.acp_white_list}</h3>
 
-	<ul class="iplist" id="ip_white_list">
-		{foreach from=$aWhiteList item=oWhite}
-			{include file="$sTemplatePathPlugin/filter_ip_inlist.tpl" oIpItem=$oBlack}
-		{/foreach}
-	</ul>
+		<ul class="iplist" id="ip_white_list">
+			{if $aWhiteList}
+				{foreach from=$aWhiteList item=oWhite}
+					{include file="$sTemplatePathPlugin/filter_ip_inlist.tpl" oIpItem=$oBlack}
+				{/foreach}
+			{else}
+				<li>{$aLang.plugin.feedback.acp_white_list_empty}</li>
+			{/if}
+		</ul>
+	</div>
 </div>
 
 {include file='footer.tpl'}
