@@ -11,11 +11,11 @@
 	<div style="display:none">
 		<p id="setting_mail_template" style="display:none" class="js-setting-mail-item">
 			<input type="text" name="settings[mail][]" value="" class="input-text input-width-200">
-			<a class="link-dotted" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)">{$aLang.plugin.feedback.acp_mail_delete}</a>
+			<a class="icon-input-style icon-delete" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)"></a>
 		</p>
 		<p id="setting_title_template" style="display:none" class="js-setting-title-item">
 			<input type="text" name="settings[title][]" value="" class="input-text input-width-200">
-			<a class="link-dotted" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)">{$aLang.plugin.feedback.acp_title_delete}</a>
+			<a class="icon-input-style icon-delete" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)"></a>
 		</p>
 	</div>
 
@@ -29,7 +29,7 @@
 		{foreach from=$aMails item=sMail}
 			<p class="js-setting-mail-item">
 				<input type="text" name="settings[mail][]" value="{$sMail|escape:'html'}" class="input-text input-width-200">
-				<a class="link-dotted" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)">{$aLang.plugin.feedback.acp_mail_delete}</a>
+				<a class="icon-input-style icon-delete" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)"></a>
 			</p>
 		{/foreach}
 		</div>
@@ -51,8 +51,8 @@
 		<div id="setting-acl-container">
 			<p>
 				<label for="acl_close_enable_yes">{$aLang.plugin.feedback.acp_acl_close_enable}</label>
-				<label><input type="radio" class="radio" name="settings[acl][close_enable]" id="acl_close_enable_yes" value="1"{if $aAcl.limit_time} checked{/if}> Yes</label>
-				<label><input type="radio" class="radio" name="settings[acl][close_enable]" id="acl_close_enable_no" value="0"{if !$aAcl.limit_time} checked{/if}> No</label>
+				<label><input type="radio" class="radio" name="settings[acl][close_enable]" id="acl_close_enable_yes" value="1" {if $aAcl.limit_time}checked="checked"{/if} /> Yes</label>
+				<label><input type="radio" class="radio" name="settings[acl][close_enable]" id="acl_close_enable_no" value="0" {if !$aAcl.limit_time}checked="checked"{/if} /> No</label>
 			</p>
 		</div>
 	</fieldset>
@@ -66,16 +66,16 @@
 		<div id="setting-fields-container">
 			<p>
 				<label for="field_name">{$aLang.plugin.feedback.acp_fields_name}</label>
-				<label><input type="radio" class="radio" name="settings[field][name]" id="field_name_no" value="0"{if !$aFields.name} checked{/if}> {$aLang.plugin.feedback.acp_field_hide}</label>
-				<label><input type="radio" class="radio" name="settings[field][name]" id="field_name_yes" value="1"{if $aFields.name} checked{/if}> {$aLang.plugin.feedback.acp_field_show}</label>
+				<label><input type="radio" class="radio" name="settings[field][name]" id="field_name_no" value="0" {if !$aFields.name}checked="checked"{/if} /> {$aLang.plugin.feedback.acp_field_hide}</label>
+				<label><input type="radio" class="radio" name="settings[field][name]" id="field_name_yes" value="1" {if $aFields.name}checked="checked"{/if} /> {$aLang.plugin.feedback.acp_field_show}</label>
 			</p>
 		</div>
 		<div id="setting-fields-container">
 			<p>
 				<label for="field_title">{$aLang.plugin.feedback.acp_fields_title}</label>
-				<label><input type="radio" class="radio" name="settings[field][title]" id="field_title_no" value="0"{if !$aFields.title} checked{/if}> {$aLang.plugin.feedback.acp_field_hide}</label>
-				<label><input type="radio" class="radio" name="settings[field][title]" id="field_title_input" value="1"{if $aFields.title == 1} checked{/if}> {$aLang.plugin.feedback.acp_field_show} {$aLang.plugin.feedback.acp_field_input|lower}</label>
-				<label><input type="radio" class="radio" name="settings[field][title]" id="field_title_list" value="2"{if $aFields.title == 2} checked{/if}> {$aLang.plugin.feedback.acp_field_show} {$aLang.plugin.feedback.acp_field_list|lower}</label>
+				<label><input type="radio" class="radio" name="settings[field][title]" id="field_title_no" value="0" {if !$aFields.title}checked="checked"{/if} /> {$aLang.plugin.feedback.acp_field_hide}</label>
+				<label><input type="radio" class="radio" name="settings[field][title]" id="field_title_input" value="1" {if $aFields.title == 1}checked="checked"{/if} /> {$aLang.plugin.feedback.acp_field_show} {$aLang.plugin.feedback.acp_field_input|lower}</label>
+				<label><input type="radio" class="radio" name="settings[field][title]" id="field_title_list" value="2" {if $aFields.title == 2}checked="checked"{/if} /> {$aLang.plugin.feedback.acp_field_show} {$aLang.plugin.feedback.acp_field_list|lower}</label>
 			</p>
 		</div>
 	</fieldset>
@@ -89,7 +89,7 @@
 		{foreach from=$aTitles item=sTitle}
 			<p class="js-setting-title-item">
 				<input type="text" name="settings[title][]" value="{$sTitle|escape:'html'}" class="input-text input-width-200">
-				<a class="link-dotted" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)">{$aLang.plugin.feedback.acp_title_delete}</a>
+				<a class="icon-input-style icon-delete" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)"></a>
 			</p>
 		{/foreach}
 		</div>
@@ -105,8 +105,14 @@
 			{assign var="aSystem" value=$_aSettings.system}
 			<p>
 				<label>
-					<input type="checkbox" class="input-checkbox" name="settings[system][popup]" id="popup_wnd" value="1"{if $aSystem.popup} checked{/if}>
+					<input type="checkbox" class="input-checkbox" name="settings[system][popup]" value="1" {if $aSystem.popup}checked="checked"{/if} />
 					{$aLang.plugin.feedback.acp_sys_popup}
+				</label>
+			</p>
+			<p>
+				<label>
+					<input type="checkbox" class="input-checkbox" name="settings[system][button]" value="1" {if $aSystem.button}checked="checked"{/if} />
+					{$aLang.plugin.feedback.acp_sys_button}
 				</label>
 			</p>
 			<p>
@@ -121,7 +127,7 @@
 			<h3>{$aLang.plugin.feedback.acp_sys_deactivate}</h3>
 			<p>
 				<label>
-					<input type="checkbox" class="input-checkbox" name="settings[deactivate][delete]" id="deactivate_delete" value="1"{if $aDeactivate.delete} checked{/if}>
+					<input type="checkbox" class="input-checkbox" name="settings[deactivate][delete]" id="deactivate_delete" value="1" {if $aDeactivate.delete} checked="checked"{/if} />
 					{$aLang.plugin.feedback.acp_sys_deactivate_delete}
 				</label>
 			</p>

@@ -46,9 +46,8 @@
 				{foreach from=$aBlackList item=oBlack}
 					{include file="$sTemplatePathPlugin/filter_ip_inlist.tpl" oIpItem=$oBlack}
 				{/foreach}
-			{else}
-				<li>{$aLang.plugin.feedback.acp_black_list_empty}</li>
 			{/if}
+			<li id="ip_black_empty" {if $aBlackList}style="display:none"{/if}>{$aLang.plugin.feedback.acp_black_list_empty}</li>
 		</ul>
 	</div>
 
@@ -58,11 +57,10 @@
 		<ul class="iplist" id="ip_white_list">
 			{if $aWhiteList}
 				{foreach from=$aWhiteList item=oWhite}
-					{include file="$sTemplatePathPlugin/filter_ip_inlist.tpl" oIpItem=$oBlack}
+					{include file="$sTemplatePathPlugin/filter_ip_inlist.tpl" oIpItem=$oWhite}
 				{/foreach}
-			{else}
-				<li>{$aLang.plugin.feedback.acp_white_list_empty}</li>
 			{/if}
+			<li id="ip_white_empty" {if $aWhiteList}style="display:none"{/if}>{$aLang.plugin.feedback.acp_white_list_empty}</li>
 		</ul>
 	</div>
 </div>

@@ -3,5 +3,6 @@
 	<li{if $sMenuSubItemSelect=='filter'} class="active"{/if}><a href="{router page='feedback'}admin/filter/"><div>{$aLang.plugin.feedback.acp_menu_filter}</div></a></li>
  
 	{hook run='menu_feedback_admin_item'}
-	{hook run='menu_feedback_admin'}
 </ul>
+
+{hook run='menu_feedback_admin'}

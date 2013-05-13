@@ -1,6 +1,6 @@
 <li id="ip_{$oIpItem->getId()}">
 	<div class="iplist_actions">
-		<a href="javascript:ls.feedback.admin.deleteIp('{$oIpItem->getHash()}')" title="" class="icon-remove"></a>
+		<a href="javascript:ls.feedback.admin.deleteIp('{$oIpItem->getHash()}')" title="" class="icon-input-style icon-delete"></a>
 	</div>
 	<span class="iplist_ip">{$oIpItem->getFromLong()|escape:"html"}</span> -
 	<span class="iplist_ip">{$oIpItem->getToLong()|escape:"html"}</span>

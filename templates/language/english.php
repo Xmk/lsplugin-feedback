@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: english.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -26,6 +26,7 @@ return array(
 	'send_text_notice' => 'Tell us about your problem',
 	'captcha' => 'Enter the numbers and letters...',
 	'captcha_error' => 'Incorrect code',
+	'button_cancel' => 'Cancel',
 	'button_send' => 'Send',
 	'button' => 'Feedback',
 
@@ -57,11 +58,13 @@ return array(
 	'acp_save' => 'Save settings',
 	'acp_save_ok' => 'The settings are saved',
 	'acp_black_list' => 'Blacklist',
-	'acp_black_list_comment' => 'Cause',
+	'acp_black_list_empty' => 'List is empty',
 	'acp_white_list' => 'White list',
+	'acp_white_list_empty' => 'List is empty',
 	'acp_ip_add' => 'Add IP to',
 	'acp_ip_add_from' => 'IP From',
 	'acp_ip_add_to' => 'IP To',
+	'acp_ip_add_comment' => 'Cause',
 	'acp_ip_add_submit' => 'Add',
 	'acp_ip_add_error' => 'Incorrect IP address',
 	'acp_ip_del' => 'Remove IP from the list of',
@@ -71,6 +74,7 @@ return array(
 	'acp_sys' => 'System configuration',
 	'acp_sys_note' => '',
 	'acp_sys_popup' => 'Modal window',
+	'acp_sys_button' => 'Button in the toolbar (otherwise link in the menu)',
 	'acp_sys_button_name' => 'Button title',
 	'acp_sys_deactivate' => 'Deactivation',
 	'acp_sys_deactivate_delete' => 'Removing DB module',

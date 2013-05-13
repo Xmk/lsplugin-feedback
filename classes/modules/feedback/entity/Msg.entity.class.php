@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: Msg.entity.class.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -36,9 +36,9 @@ class PluginFeedback_ModuleFeedback_EntityMsg extends Entity {
 	/**
 	 * Проверка на ограничение по времени
 	 *
-	 * @param string $sValue	Проверяемое значение
-	 * @param array $aParams	Параметры
-	 * @return bool|string
+	 * @param	string	$sValue		Проверяемое значение
+	 * @param	array	$aParams	Параметры
+	 * @return	bool|string
 	 */
 	public function ValidateTimeLimit($sValue,$aParams) {
 		if ($this->PluginFeedback_Feedback_CanWrite()) {

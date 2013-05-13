@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: HookFeedback.class.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -19,8 +19,8 @@ class PluginFeedback_HookFeedback extends Hook {
 		$this->AddHook('init_action', 'InitAction', __CLASS__);
 		$this->AddHook('template_feedback_copyright','FeedbackCopyright');
 		$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
+		$this->AddHook('template_main_menu_item','MainMenu', __CLASS__);
 	}
-
 
 	public function InitAction($aVars) {
 		if (!$this->User_GetUserCurrent()) {
@@ -50,12 +50,14 @@ class PluginFeedback_HookFeedback extends Hook {
 		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'copyright.tpl');
 	}
 
-	/**
-	 * Вставляем ссылку на Обратную связь в футер
-	 */
-	public function InjectFooter($aVars) {
+	public function InjectFooter() {
 		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'window_feedback.tpl');
 	}
 
+	public function MainMenu() {
+		if (!Config::Get('plugin.feedback.system.button')) {
+			return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'main_menu.tpl');
+		}
+	}
 }
 ?>

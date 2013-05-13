@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: ukrainian.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -26,6 +26,7 @@ return array(
 	'send_text_notice' => 'Розкажіть нам про вашу проблему',
 	'captcha' => 'Введіть цифри та літери',
 	'captcha_error' => 'Невірний код',
+	'button_cancel' => 'Відміна',
 	'button_send' => 'Відправити',
 	'button' => 'Написати нам',
 
@@ -57,11 +58,13 @@ return array(
 	'acp_save' => 'Зберегти налаштування',
 	'acp_save_ok' => 'Налаштування збережені',
 	'acp_black_list' => 'Чорний список',
-	'acp_black_list_comment' => 'Причина',
+	'acp_black_list_empty' => 'Cписок порожній',
 	'acp_white_list' => 'Білий список',
+	'acp_white_list_empty' => 'Cписок порожній',
 	'acp_ip_add' => 'Додати IP в',
 	'acp_ip_add_from' => 'IP From',
 	'acp_ip_add_to' => 'IP To',
+	'acp_ip_add_comment' => 'Причина',
 	'acp_ip_add_submit' => 'Додати',
 	'acp_ip_add_error' => 'Некоректний IP адресу',
 	'acp_ip_del' => 'Видалити IP зі списку',
@@ -71,6 +74,7 @@ return array(
 	'acp_sys' => 'Системна конфігурація',
 	'acp_sys_note' => '',
 	'acp_sys_popup' => 'Модальне вікно',
+	'acp_sys_button' => 'Кнопка в тулбарі (інакше посилання в меню)',
 	'acp_sys_button_name' => 'Назва кнопки',
 	'acp_sys_deactivate' => 'Деактивація',
 	'acp_sys_deactivate_delete' => 'Видалення таблиць плагіна',

@@ -79,6 +79,7 @@ ls.feedback.admin = (function ($) {
 			} else {
 				if (result.sMsg) ls.msg.notice(null,result.sMsg);
 				$('#ip_'+result.sType+'_list').append(result.sText);
+				$('#ip_'+result.sType+'_empty').hide();
 			}
 		}.bind(this));
 		return false;
@@ -92,6 +93,8 @@ ls.feedback.admin = (function ($) {
 			} else {
 				if (result.sMsg) ls.msg.notice(null,result.sMsg);
 				$('#ip_'+result.sId).detach();
+				if ($('#ip_'+result.sType+'_list li').size() == 1)
+				$('#ip_'+result.sType+'_empty').show();
 			}
 		}.bind(this));
 		return false;
@@ -103,7 +106,7 @@ ls.feedback.admin = (function ($) {
 
 jQuery(document).ready(function($){
 
-	var container=$('#setting-title-container').parent('.wrapper-content');
+	var container=$('#setting-title-container').parent('fieldset');
 
 	$('input:radio[name=field[title]]').change(function(e){
 		var checkbox=$(e.target);

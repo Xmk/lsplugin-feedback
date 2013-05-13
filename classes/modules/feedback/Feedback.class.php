@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: Feedback.class.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -19,6 +19,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 	const ERROR_IN_BLACKLIST	= 201;
 	const ERROR_IN_TIMELIMIT	= 202;
 
+	const SORT_DEFAULT			= 0;
 	const SORT_BY_GROUP			= 1;
 	const SORT_BY_KEY			= 2;
 
@@ -41,13 +42,19 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 		$this->oUserCurrent=$this->User_GetUserCurrent();
 	}
 
-	public function GetSettings($bSort=0) {
+	/**
+	 * Получить массив настроек плагина
+	 *
+	 * @param	integer		$iSort
+	 * @return	array
+	 */
+	public function GetSettings($iSort=self::SORT_DEFAULT) {
 		$aRes = array();
 		$aSets = $this->GetSettingItemsAll();
 		foreach ($aSets as $oSet) {
-			if ($bSort == self::SORT_BY_GROUP) {
+			if ($iSort == self::SORT_BY_GROUP) {
 				$aRes[$oSet->getGroup()][]=$oSet;
-			} elseif ($bSort == self::SORT_BY_KEY) {
+			} elseif ($iSort == self::SORT_BY_KEY) {
 				$aRes[$oSet->getKey()]=$oSet;
 			} else {
 				$aKeys=explode('.',$oSet->getKey());
@@ -62,12 +69,20 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 		return $aRes;
 	}
 
+	/**
+	 * Задает массив настроек плагина
+	 *
+	 * @param	array		$aSets
+	 * @return	boolean
+	 */
 	public function SetSettings($aSets) {
 		if (!is_array($aSets)) {
 			return false;
 		}
 		$aSettings = $this->GetSettings(self::SORT_BY_KEY);
-		//save new sets
+		/**
+		 * Сохраняем
+		 */
 		foreach ($aSets as $sGroup=>$aItems) {
 			foreach ($aItems as $sKey=>$sValue) {
 				$sNewKey = (string)$sGroup.'.'.$sKey;
@@ -83,17 +98,21 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 				$oSet->Save();
 			}
 		}
-		//delete old sets
-		foreach ($aSettings as $oSet) {
-			$oSet->Delete();
-		}
+		/**
+		 * Удаляем старые
+		 */
+		foreach ($aSettings as $oSet) $oSet->Delete();
+
 		return true;
 	}
 
 	/**
 	 * Отправка письма
+	 *
+	 * @param	object	$oMsg
+	 * @return	array
 	 */
-	public function Send($oMsg) {
+	public function Send(PluginFeedback_ModuleFeedback_EntityMsg $oMsg) {
 		$aRes = array();
 
 		$aMails = Config::Get('plugin.feedback.mail');
@@ -157,6 +176,7 @@ class PluginFeedback_ModuleFeedback extends ModuleORM {
 	/**
 	 * Проверяет возможность написать
 	 *
+	 * @return boolean
 	 */
 	public function CanWrite() {
 		$sCookieIp=fGetCookie('CfFB');

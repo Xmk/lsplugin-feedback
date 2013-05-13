@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: russian.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -74,6 +74,7 @@ return array(
 	'acp_sys' => 'Системная конфигурация',
 	'acp_sys_note' => '',
 	'acp_sys_popup' => 'Модальное окно',
+	'acp_sys_button' => 'Кнопка в тулбаре (иначе ссылка в меню)',
 	'acp_sys_button_name' => 'Название кнопки',
 	'acp_sys_deactivate' => 'Деактивация плагина',
 	'acp_sys_deactivate_delete' => 'Удаление таблиц плагина',

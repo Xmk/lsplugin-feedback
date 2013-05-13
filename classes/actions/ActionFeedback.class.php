@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: ActionFeedback.class.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -168,10 +168,12 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		 * Удаляем
 		 */
 		$sId=$oIp->getId();
+		$sType=$oIp->getGroup();
 		$oIp->Delete();
 		/**
 		 * Передаем результат в ajax ответ
 		 */
+		$this->Viewer_AssignAjax('sType',$sType);
 		$this->Viewer_AssignAjax('sId',$sId);
 		$this->Message_AddNoticeSingle($this->Lang_Get('plugin.feedback.acp_ip_del_ok'));
 		return true;
@@ -244,8 +246,10 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 			$this->Viewer_AssignAjax('aErrors',$oMsg->_getValidateErrors());
 		}
 	}
+
 	/**
-	 * Обработка Ajax регистрации
+	 * Обработка Ajax отправки сообщения
+	 *
 	 */
 	protected function EventAjaxSend() {
 		/**

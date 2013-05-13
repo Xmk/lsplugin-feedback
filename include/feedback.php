@@ -4,7 +4,7 @@
 * @Description: Feedback for LiveStreet
 * @Version: 2.0
 * @Author: Chiffa
-* @LiveStreet Version: 1.X
+* @LiveStreet version: 1.X
 * @File Name: feedback.php
 * @License: CC BY-NC, http://creativecommons.org/licenses/by-nc/3.0/
 *----------------------------------------------------------------------------
@@ -31,17 +31,19 @@ if (!function_exists('fGetCookie')) {
 	}
 }
 
-function int2ip($i) {
-	$d=array();
-	$d[0]=(int)($i/256/256/256);
-	$d[1]=(int)(($i-$d[0]*256*256*256)/256/256);
-	$d[2]=(int)(($i-$d[0]*256*256*256-$d[1]*256*256)/256);
-	$d[3]=$i-$d[0]*256*256*256-$d[1]*256*256-$d[2]*256;
-	return implode('.', $d);
-}
-function ip2int($ip) {
-	$a=explode('.', $ip);
-	return $a[0]*256*256*256+$a[1]*256*256+$a[2]*256+$a[3];
+if (!function_exists('int2ip')) {
+	function int2ip($i) {
+		$d=array();
+		$d[0]=(int)($i/256/256/256);
+		$d[1]=(int)(($i-$d[0]*256*256*256)/256/256);
+		$d[2]=(int)(($i-$d[0]*256*256*256-$d[1]*256*256)/256);
+		$d[3]=$i-$d[0]*256*256*256-$d[1]*256*256-$d[2]*256;
+		return implode('.', $d);
+	}
+	function ip2int($ip) {
+		$a=explode('.', $ip);
+		return $a[0]*256*256*256+$a[1]*256*256+$a[2]*256+$a[3];
+	}
 }
 
 ?>
