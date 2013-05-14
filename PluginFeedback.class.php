@@ -47,6 +47,10 @@ class PluginFeedback extends Plugin {
 	 */
 	public function Init() {
 		/**
+		 * Загружаем конфиг
+		 */
+		Config::Set('plugin.feedback',$this->PluginFeedback_Feedback_GetSettings());
+		/**
 		 * Подключаем CSS
 		 */
 		$this->Viewer_AppendStyle(Plugin::GetTemplatePath(__CLASS__).'css/feedback.css');
@@ -60,10 +64,6 @@ class PluginFeedback extends Plugin {
 		if (Config::Get('plugin.feedback.system.button')) {
 			$this->Viewer_AddBlock('toolbar','toolbar_feedback.tpl',array('plugin'=>__CLASS__),-111);
 		}
-		/**
-		 * Load config
-		 */
-		Config::Set('plugin.feedback',$this->PluginFeedback_Feedback_GetSettings());
 	}
 
 }
