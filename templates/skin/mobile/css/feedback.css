@@ -19,7 +19,6 @@
 .toolbar .toolbar-feedback { position: fixed; bottom: 5px; right: 5px; z-index: 20 }
 .toolbar .toolbar-feedback i { margin-top: 2px }
 
-.slide#modal_feedback { width: 510px; margin-left: -245px; top: 50px }
 .slide#modal_feedback .icon-question-sign { position: relative; top: -3px }
 .slide#modal_feedback .icon-ok-green { position: relative; top: -1px }
 
