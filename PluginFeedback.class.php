@@ -49,7 +49,7 @@ class PluginFeedback extends Plugin {
 		/**
 		 * Загружаем конфиг
 		 */
-		Config::Set('plugin.feedback',$this->PluginFeedback_Feedback_GetSettings());
+		Config::Set('plugin.feedback',func_array_merge_assoc(Config::Get('plugin.feedback'), $this->PluginFeedback_Feedback_GetSettings()));
 		/**
 		 * Подключаем CSS
 		 */
