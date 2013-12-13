@@ -1,7 +1,7 @@
 {if $sName}
-<strong>Ім'я користувача:</strong> {$sName}<br/>
+<strong>Ім'я користувача:</strong> {$sName|escape:'html'}<br/>
 {/if}
-<strong>Зворотня адреса:</strong> {$sMail}<br/>
+<strong>Зворотня адреса:</strong> {$sMail|escape:'html'}<br/>
 <br/>
 <strong>IP адреса, з якої було відправлено цей лист:</strong><br/>
 {$sIp}

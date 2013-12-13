@@ -263,9 +263,9 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * Заполняем поля (данные)
 		 */
-		$oMsg->setName(getRequest('name'));
-		$oMsg->setMail(getRequest('mail'));
-		$oMsg->setTitle(getRequest('title'));
+		$oMsg->setName(strip_tags(getRequest('name')));
+		$oMsg->setMail(strip_tags(getRequest('mail')));
+		$oMsg->setTitle(strip_tags(getRequest('title')));
 		$oMsg->setText($this->Text_Parser(getRequest('text')));
 		$oMsg->setCaptcha(getRequest('captcha'));
 		$oMsg->setIp(func_getIp());

@@ -3,7 +3,6 @@
 		<h3>{$aLang.plugin.feedback.feedback}</h3>
 	</header>
 
-	{strip}
 	<div class="modal-content">
 		<form action="{router page='feedback'}" method="post" id="popup-feedback-form">
 			{hook run='form_feedback_begin' isPopup=true}
@@ -49,7 +48,7 @@
 			<i class="icon-ok-green validate-ok-field-text" style="display: none"></i>
 			<small class="validate-error-hide validate-error-field-text"></small></p>
 
-			{hookb run="popup_feedbacl_captcha"}
+			{hookb run="popup_feedback_captcha"}
 			<p><label for="popup-feedback-captcha">{$aLang.plugin.feedback.captcha}</label>
 			<img src="{cfg name='path.root.engine_lib'}/external/kcaptcha/index.php?{$_sPhpSessionName}={$_sPhpSessionId}" 
 				 onclick="this.src='{cfg name='path.root.engine_lib'}/external/kcaptcha/index.php?{$_sPhpSessionName}={$_sPhpSessionId}&n='+Math.random();"
@@ -65,6 +64,6 @@
 			<button type="button" class="button" onclick="return ls.feedback.hideForm()">{$aLang.plugin.feedback.button_cancel}</button>
 		</form>
 	</div>
-	{/strip}
+
 	{hook run='feedback_copyright'}
 </div>

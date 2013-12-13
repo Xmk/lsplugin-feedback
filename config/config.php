@@ -23,4 +23,6 @@ Config::Set('plugin.feedback.encrypt', 'ChiffaYo');
  */
 $config['donator']				= false;
 
+return $config;
+
 ?>

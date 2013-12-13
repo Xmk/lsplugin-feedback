@@ -1,7 +1,7 @@
 {if $sName}
-<strong>Username:</strong> {$sName}<br/>
+<strong>Username:</strong> {$sName|escape:'html'}<br/>
 {/if}
-<strong>Feedback:</strong> {$sMail}<br/>
+<strong>Feedback:</strong> {$sMail|escape:'html'}<br/>
 <br/>
 <strong>IP address from which the message was sent:</strong><br/>
 {$sIp}

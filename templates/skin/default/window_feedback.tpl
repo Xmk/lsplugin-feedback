@@ -4,7 +4,6 @@
 		<a href="#" class="close jqmClose"></a>
 	</header>
 
-	{strip}
 	<div class="modal-content">
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
@@ -56,7 +55,7 @@
 			<i class="icon-ok-green validate-ok-field-text" style="display: none"></i>
 			<small class="validate-error-hide validate-error-field-text"></small></p>
 
-			{hookb run="popup_feedbacl_captcha"}
+			{hookb run="popup_feedback_captcha"}
 			<p><label for="popup-feedback-captcha">{$aLang.plugin.feedback.captcha}</label>
 			<img src="{cfg name='path.root.engine_lib'}/external/kcaptcha/index.php?{$_sPhpSessionName}={$_sPhpSessionId}" 
 				 onclick="this.src='{cfg name='path.root.engine_lib'}/external/kcaptcha/index.php?{$_sPhpSessionName}={$_sPhpSessionId}&n='+Math.random();"
@@ -71,6 +70,6 @@
 			<button type="submit"  name="submit_feedback" class="button button-primary" id="popup-feedback-form-submit" disabled="disabled">{$aLang.plugin.feedback.button_send}</button>
 		</form>
 	</div>
-	{/strip}
+
 	{hook run='feedback_copyright'}
 </div>
