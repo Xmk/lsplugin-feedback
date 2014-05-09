@@ -24,7 +24,7 @@ class PluginFeedback_ModuleFeedback_EntityMsg extends Entity {
 		array('mail','email','allowEmpty'=>false),
 		array('text','string','allowEmpty'=>false,'min'=>10,'max'=>3000),
 		array('captcha','captcha'),
-		array('ip','time_limit')
+	//	array('ip','time_limit')
 	);
 
 	public function Init() {

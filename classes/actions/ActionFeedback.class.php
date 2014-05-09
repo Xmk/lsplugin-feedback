@@ -269,7 +269,7 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		$oMsg->setText($this->Text_Parser(getRequest('text')));
 		$oMsg->setCaptcha(getRequest('captcha'));
 		$oMsg->setIp(func_getIp());
-		$oMsg->setDate(date("Y-m-d H:i:s"));
+		$oMsg->setDate(date('Y-m-d H:i:s'));
 		/**
 		 * Запускаем хук
 		 */
@@ -321,7 +321,9 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 	 *
 	 */
 	protected function EventIndex() {
-
+		/**
+		 * Просто выводим шаблон
+		 */
 	}
 
 	/**
@@ -420,11 +422,9 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 		/**
 		 * Загружаем в шаблон JS текстовки
 		 */
-		$this->Lang_AddLangJs(
-			array(
-				'plugin.feedback.acp_ip_del_confirm'
-			)
-		);
+		$this->Lang_AddLangJs(array(
+			'plugin.feedback.acp_ip_del_confirm'
+		));
 	}
 
 
