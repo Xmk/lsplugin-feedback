@@ -1,0 +1,46 @@
+/**
+ * Feedback
+ */
+
+#filter_comment { width: 420px }
+
+.input-feedback-ip { text-align: center; width: 40px }
+
+.ip-block { float: left; margin: 5px 30px 15px 0 }
+
+.iplist { }
+.iplist #ip_black_list li  { background: #aaa }
+.iplist #ip_white_list li { background: #eee }
+.iplist li { padding: 10px 0; line-height: 12px; color: #777; overflow: hidden; zoom: 1; border-bottom: 1px solid #efefef; }
+.iplist li:last-child { border-bottom: none; }
+.iplist_ip { color: #333; font-family: "PT Sans Bold", Arial, sans-serif; }
+.iplist_comment { }
+.iplist_actions { float: right }
+
+.feedback-form .form-item:last-child { margin-bottom: 0 }
+.feedback-form dl.form-item dd { position: relative;}
+.feedback-form dl.form-item dd .markItUp { }
+.feedback-form dl.form-item dd .mce-editor { height: 200px }
+.feedback-form dl.form-item dd .form-item-help { width: 50px; height: 20px; position: absolute; top: 1px; right: 0 }
+.feedback-form dl.form-item dd .form-item-help.active { background: url(../images/dots.png) 0 12px repeat-x }
+.feedback-form dl.form-item dd .form-item-help i { background-color: #f8fbfe }
+.feedback-form dl.form-item dd .form-item-help i.icon-ok-green  { position: absolute; top: 3px; right: 0 }
+
+.toolbar .toolbar-feedback { position: fixed; bottom: 5px; right: 5px; z-index: 20 }
+.toolbar .toolbar-feedback i { margin-top: 2px }
+
+.modal.modal-feedback { width: 510px; margin-left: -245px; top: 50px }
+.modal.modal-feedback .modal-header { margin-bottom: 0 }
+.modal.modal-feedback .modal-content { padding-top: 15px }
+.modal.modal-feedback .icon-question-sign { position: relative; top: -3px }
+.modal.modal-feedback .icon-ok-green { position: relative; top: -1px }
+.modal.modal-feedback .feedback-copyright { text-align: center; float: none }
+.modal.modal-feedback .feedback-copyright span { color: #999; padding: 4px 15px; display: inline }
+
+.feedback-copyright { position: absolute; right: 1%; top: 22%; }
+.feedback-copyright span { font-size: 10px; display: block }
+
+.button-feedback {}
+
+.js-setting-title-item.input-icon,
+.js-setting-mail-item.input-icon { margin-bottom: 10px; overflow: hidden; }
