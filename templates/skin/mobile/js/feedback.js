@@ -26,9 +26,9 @@ ls.feedback = (function ($) {
 		if (typeof(submit)=='string') {
 			submit=$('#'+submit);
 		}
-		$(form).find('.js-ajax-validate').blur(function(e){
-			ls.feedback.validateField($(e.target).attr('name'),$(e.target).val(),$(form));
-		});
+		//$(form).find('.js-ajax-validate').blur(function(e){
+		//	ls.feedback.validateField($(e.target).attr('name'),$(e.target).val(),$(form));
+		//});
 		$(form).bind('submit',function(){
 			ls.feedback.send(form,isPopup);
 			return false;
@@ -73,9 +73,7 @@ ls.feedback = (function ($) {
 		}
 		form.find('.validate-error-show').removeClass('validate-error-show').addClass('validate-error-hide');
 		form.find('.icon-ok-green').hide();
-		form.find('input.js-ajax-validate').val('');
-		form.find('textarea.js-ajax-validate').val('');
-		form.find('select.js-ajax-validate').val('');
+		form.find('.js-ajax-validate').val('');
 		form.find('.captcha-image').click();
 	};
 
@@ -98,11 +96,11 @@ ls.feedback = (function ($) {
 			}
 			$.each(aFields,function(i,aField){
 				if (result.aErrors && result.aErrors[aField.field][0]) {
-					sForm.find('.validate-error-field-'+aField.field).removeClass('validate-error-hide').addClass('validate-error-show').text(result.aErrors[aField.field][0]);
-					sForm.find('.validate-ok-field-'+aField.field).hide();
+					sForm.find('.validate-error-field-'+aField.field+' .validate-error').removeClass('validate-error-hide').addClass('validate-error-show').text(result.aErrors[aField.field][0]);
+					sForm.find('.validate-error-field-'+aField.field).removeClass('has-success').addClass('has-error');
 				} else {
-					sForm.find('.validate-error-field-'+aField.field).removeClass('validate-error-show').addClass('validate-error-hide');
-					sForm.find('.validate-ok-field-'+aField.field).show();
+					sForm.find('.validate-error-field-'+aField.field+' .validate-error').removeClass('validate-error-show').addClass('validate-error-hide');
+					sForm.find('.validate-error-field-'+aField.field).removeClass('has-error').addClass('has-success');
 				}
 			});
 			ls.hook.run('validate_feedback_fields_after', [aFields, sForm, result]);
@@ -129,7 +127,9 @@ ls.feedback = (function ($) {
 	 */
 	this.send = function(form,isPopup) {
 		var url = aRouter['feedback']+'ajax/send/';
+		var submit = isPopup ? '#popup-feedback-form-submit' : '#feedback-form-submit';
 
+		$(submit).attr('disabled','disabled');
 		ls.user.formLoader(form);
 		ls.hook.marker('feedbackSendBefore');
 		ls.ajaxSubmit(url, form, function(result) {
@@ -144,7 +144,8 @@ ls.feedback = (function ($) {
 				if (result.aErrors) {
 					$.each(result.aErrors,function(sField,aErrors){
 						if (aErrors[0]) {
-							form.find('.validate-error-field-'+sField).removeClass('validate-error-hide').addClass('validate-error-show').text(aErrors[0]);
+							form.find('.validate-error-field-'+sField+' .validate-error').removeClass('validate-error-hide').addClass('validate-error-show').text(aErrors[0]);
+							form.find('.validate-error-field-'+sField).removeClass('has-success').addClass('has-error');
 						}
 					});
 				} else {
@@ -157,9 +158,15 @@ ls.feedback = (function ($) {
 					}
 					this.clearFields(form);
 				}
+				$(submit).attr('disabled',false);
 				ls.hook.run('feedback_send_after', [form, result]);
 			}
 		}.bind(this));
+	};
+
+	this.hideForm = function(){
+		ls.tools.slide($('#modal_feedback'), $(this), true)
+		return false;
 	};
 
 	return this;
@@ -169,19 +176,7 @@ ls.feedback = (function ($) {
 jQuery(document).ready(function($){
 	ls.hook.run('feedback_template_init_start',[],window);
 
-	// Инициализация формы
-	ls.feedback.initForm();
-
-	// Модальное окно
-	$('#modal_feedback').insertAfter($('#nav'));
-	$('.js-feedback-window-show').click(function() {
-		$('#modal_feedback').slideDown();
-		return false;
-	});
-	ls.feedback.hideForm = function(){
-		$('#modal_feedback').slideUp();
-		return false;
-	};
+	$('#modal_feedback').insertAfter($('#header'));
 
 	ls.hook.run('feedback_template_init_end',[],window);
 });

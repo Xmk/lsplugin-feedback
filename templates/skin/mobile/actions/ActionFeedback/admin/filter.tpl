@@ -1,8 +1,7 @@
 {include file='header.tpl' noSidebar=true}
+{include file="$sTemplatePathPlugin/menu.feedback.admin.tpl"}
 
 <h2 class="page-header"><a href="{router page='feedback'}">{$aLang.plugin.feedback.feedback}</a> <span>&raquo;</span> {$aLang.plugin.feedback.acp_filter}</h2>
-
-{include file="$sTemplatePathPlugin/menu.feedback.admin.tpl"}
 
 <form id="ip-form" method="POST" enctype="multipart/form-data">
 	<h3>

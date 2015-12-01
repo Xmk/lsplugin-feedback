@@ -19,8 +19,9 @@
 .toolbar .toolbar-feedback { position: fixed; bottom: 5px; right: 5px; z-index: 20 }
 .toolbar .toolbar-feedback i { margin-top: 2px }
 
-.slide#modal_feedback .icon-question-sign { position: relative; top: -3px }
 .slide#modal_feedback .icon-ok-green { position: relative; top: -1px }
+.slide#modal_feedback form p.has-success .js-ajax-validate { border-color: #3c763d }
+.slide#modal_feedback form p.has-error .js-ajax-validate { border-color: #f00 }
 
 .feedback-copyright { clear: both; text-align: center }
 .feedback-copyright span { color: #788087; font-size: 10px; display: inline-block; margin: 4px 15px }
@@ -34,4 +35,12 @@
 }
 .icon-input-style.icon-delete:hover {
 	background-position: -330px -82px
+}
+
+#header .nav-userbar li.item-feedback {
+	background: url(../images/icon.png) 0px -0px no-repeat /* icon: search.png */;
+}
+#header .nav-userbar li.item-feedback.active {
+	background: url(../images/icon.png) -44px -0px no-repeat /* icon: search-active.png */;
+	background-color: #FFFDEF !important;
 }

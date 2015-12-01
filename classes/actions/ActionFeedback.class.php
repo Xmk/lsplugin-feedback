@@ -388,13 +388,12 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 				return false;
 			}
 		}
-			$_aSettings=array();
-			$aSettings=$this->PluginFeedback_Feedback_GetSettings();
-			foreach ($aSettings as $sKey=>$sValue) {
-				$_aSettings[$sKey]=$sValue;
-			}
-			$_REQUEST['settings']=$_aSettings;
-	//	}
+		$_aSettings=array();
+		$aSettings=$this->PluginFeedback_Feedback_GetSettings();
+		foreach ($aSettings as $sKey=>$sValue) {
+			$_aSettings[$sKey]=$sValue;
+		}
+		$_REQUEST['settings']=$_aSettings;
 		/**
 		 * Устанавливаем шаблон вывода
 		 */

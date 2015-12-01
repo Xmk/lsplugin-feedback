@@ -18,8 +18,9 @@ class PluginFeedback_HookFeedback extends Hook {
 	public function RegisterHook() {
 		$this->AddHook('init_action', 'InitAction', __CLASS__);
 		$this->AddHook('template_feedback_copyright','FeedbackCopyright');
-		$this->AddHook('template_body_end', 'InjectFooter', __CLASS__);
 		$this->AddHook('template_main_menu_item','MainMenu', __CLASS__);
+		$this->AddHook('template_body_end', 'InjectModal', __CLASS__);
+		$this->AddHook('template_userbar_item','MobileUserbarItem', __CLASS__);
 	}
 
 	public function InitAction($aVars) {
@@ -50,7 +51,7 @@ class PluginFeedback_HookFeedback extends Hook {
 		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'copyright.tpl');
 	}
 
-	public function InjectFooter() {
+	public function InjectModal() {
 		return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'window_feedback.tpl');
 	}
 
@@ -59,5 +60,12 @@ class PluginFeedback_HookFeedback extends Hook {
 			return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'main_menu.tpl');
 		}
 	}
+
+	public function MobileUserbarItem() {
+		if (class_exists('MobileDetect') && MobileDetect::IsMobileTemplate(false)) {
+			return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'userbar_item.tpl');
+		}
+	}
+
 }
 ?>
