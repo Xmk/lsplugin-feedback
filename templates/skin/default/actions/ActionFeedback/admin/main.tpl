@@ -8,16 +8,14 @@
 <form action="{router page='feedback'}admin/" method="post">
 	<input type="hidden" name="security_ls_key" value="{$LIVESTREET_SECURITY_KEY}" />
 
-	<div class="wrapper-content">
-		<p id="setting_mail_template" style="display:none" class="js-setting-mail-item">
-			<input type="text" name="settings[mail][]" value="" class="input-text input-width-200">
-			<a class="icon-remove" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)"></a>
-		</p>
-		<p id="setting_title_template" style="display:none" class="js-setting-title-item">
-			<input type="text" name="settings[title][]" value="" class="input-text input-width-200">
-			<a class="icon-remove" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)"></a>
-		</p>
-	</div>
+	<p id="setting_mail_template" style="display:none" class="js-setting-mail-item">
+		<input type="text" name="settings[mail][]" value="" class="input-text input-width-200">
+		<a class="icon-remove" title="{$aLang.plugin.feedback.acp_mail_delete}" href="#" onclick="return ls.feedback.admin.deleteMail(this)"></a>
+	</p>
+	<p id="setting_title_template" style="display:none" class="js-setting-title-item">
+		<input type="text" name="settings[title][]" value="" class="input-text input-width-200">
+		<a class="icon-remove" title="{$aLang.plugin.feedback.acp_title_delete}" href="#" onclick="return ls.feedback.admin.deleteTitle(this)"></a>
+	</p>
 
 	<div class="wrapper-content wrapper-content-dark">
 		<h3>{$aLang.plugin.feedback.acp_mails}</h3>

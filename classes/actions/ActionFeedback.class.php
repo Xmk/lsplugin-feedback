@@ -387,14 +387,14 @@ class PluginFeedback_ActionFeedback extends ActionPlugin {
 				$this->Message_AddErrorSingle($this->Lang_Get('system_error'),$this->Lang_Get('error'));
 				return false;
 			}
-		} else {
+		}
 			$_aSettings=array();
 			$aSettings=$this->PluginFeedback_Feedback_GetSettings();
 			foreach ($aSettings as $sKey=>$sValue) {
 				$_aSettings[$sKey]=$sValue;
 			}
 			$_REQUEST['settings']=$_aSettings;
-		}
+	//	}
 		/**
 		 * Устанавливаем шаблон вывода
 		 */
