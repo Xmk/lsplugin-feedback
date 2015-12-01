@@ -7,10 +7,9 @@
 	</name>
 	<author>
 		<lang name="default">Chiffa</lang>
-		<lang name="russian">Чиффа</lang>
 	</author>
-	<homepage>http://xmk.ars-team.ru</homepage>
-	<version>2.0.2</version>
+	<homepage>http://ars-team.ru</homepage>
+	<version>2.0.3</version>
 	<settings>{feedback}admin/</settings>
 	<requires>
 		<livestreet>1.0</livestreet>

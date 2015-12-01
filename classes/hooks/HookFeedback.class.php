@@ -56,7 +56,7 @@ class PluginFeedback_HookFeedback extends Hook {
 	}
 
 	public function MainMenu() {
-		if (!Config::Get('plugin.feedback.system.button') || (class_exists('MobileDetect') && MobileDetect::IsMobileTemplate())) {
+		if (!Config::Get('plugin.feedback.system.button')) {
 			return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__).'main_menu.tpl');
 		}
 	}
